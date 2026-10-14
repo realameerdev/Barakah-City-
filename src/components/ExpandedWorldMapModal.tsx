@@ -1,0 +1,200 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from 'react';
+import { X, MapPin, Compass, Users, Navigation } from 'lucide-react';
+
+interface ExpandedWorldMapModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  playerX: number;
+  playerZ: number;
+  currentDistrict: string;
+  onFastTravel?: (targetX: number, targetZ: number, districtName: string) => void;
+}
+
+const DISTRICT_ZONES = [
+  // Global Cities & Historic Metropolises
+  { name: 'Abuja Metropolis Central Capital', x: 0, z: 0, color: '#10b981', desc: 'Federal capital center, broad avenues, civic plazas, and central boulevard.' },
+  { name: 'Lagos Coastal City & Eko Haven', x: -175, z: 65, color: '#38bdf8', desc: 'Atlantic maritime trade gateway, Lekki coastal esplanade, and ocean breeze.' },
+  { name: 'Kwara Cultural City & Ilorin Citadel', x: 55, z: 85, color: '#f59e0b', desc: 'Emirate heritage citadel, traditional pottery souq, and artisan weaving quarter.' },
+  { name: 'Makkah Al-Mukarramah Sanctuary', x: 0, z: -85, color: '#fbbf24', desc: 'Spiritual sanctuary, grand congregational prayer terrace, and marble mihrab.' },
+  { name: 'Al-Madinah Oasis & Palm Grove', x: -130, z: 90, color: '#10b981', desc: 'Serene date palm groves, green dome tranquility, and oasis fountains.' },
+  { name: 'Cairo Historic Citadel & Nile Esplanade', x: 110, z: 120, color: '#eab308', desc: 'Sultan fortress minarets, Nile riverside promenade, and ancient trade gates.' },
+  { name: 'Istanbul Bosphorus Imperial City', x: 120, z: -125, color: '#ec4899', desc: 'Ottoman dome skyline, Bosphorus shipping harbor, and historic Spice Souq.' },
+  { name: 'Samarkand Silk Road Registan Citadel', x: -150, z: -85, color: '#06b6d4', desc: 'Turquoise majolica portals, celestial observatory, and Silk Road trade station.' },
+  { name: 'Zanzibar Stone Town Ocean Haven', x: -175, z: -60, color: '#14b8a6', desc: 'Coral stone carved doors, Indian Ocean dhow piers, and tropical spice souq.' },
+  { name: 'Muscat Gulf Citadel & Corniche', x: 150, z: 80, color: '#8b5cf6', desc: 'White fortress watchtowers, Gulf of Oman corniche, and frankincense bazaar.' },
+  { name: 'Fez Ancient Medina & Qarawiyyin', x: -75, z: -150, color: '#047857', desc: 'Moroccan cedar courtyards, fountain mosaic zellige, and world oldest university district.' },
+  { name: 'Cordoba Great Mosque & Guadalquivir', x: 75, z: -55, color: '#10b981', desc: 'Andalusian horseshoe arches, fragrant orange tree patios, and Roman stone bridge.' },
+  { name: 'Baghdad Round City & Tigris Haven', x: -135, z: -35, color: '#0284c7', desc: 'Abbasid scientific center, Tigris riverfront promenade, and celestial observatories.' },
+  { name: 'Kano Ancient Walls & Kurmi Souq', x: 2, z: 22, color: '#f59e0b', desc: 'Centuries-old indigo dye pits, Emirate royal palace gate, and Sahelian trade crossroads.' },
+  { name: 'Dakar Atlantic Corniche & Teranga', x: 25, z: -165, color: '#06b6d4', desc: 'West African ocean bluff views, Grand Mosque of Dakar, and coastal sunset breeze.' },
+  { name: 'Bukhara Silk Oasis & Kalyan Citadel', x: 135, z: 35, color: '#d97706', desc: 'Central Asian mud-brick madrassas, Kalyan minaret beacon, and turquoise domes.' },
+  { name: 'Jerusalem Al-Quds Historic Haven', x: -80, z: 0, color: '#eab308', desc: 'Ancient stone alleys, olive tree courtyards, and golden dome vista.' },
+  { name: 'Kuala Lumpur Minaret Towers City', x: -80, z: -65, color: '#a855f7', desc: 'Lush tropical greenery, modern Islamic architecture, and tranquil garden lakes.' },
+
+  // Masajids (Mosques)
+  { name: 'Grand Mosque & Mihrab Sanctuary', x: 0, z: -58, color: '#10b981', desc: 'Central congregational prayer hall, four towering minarets, and courtyard terrace.' },
+  { name: 'Al-Andalus East Grand Masjid', x: 130, z: -60, color: '#059669', desc: 'Historic Andalusian arched colonnades, turquoise tiled domes, and reflection pool.' },
+  { name: 'Al-Madinah Oasis Masjid', x: -130, z: 90, color: '#10b981', desc: 'Serene oasis sanctuary with emerald dome, date palm prayer garden, and fountain.' },
+  { name: 'Al-Qarawiyyin Historical Masjid', x: -110, z: -110, color: '#047857', desc: 'Ancient Moroccan horseshoe arches, cedar woodwork, and tranquil courtyard.' },
+  { name: 'Sultan Baybars South Grand Masjid', x: 110, z: 120, color: '#10b981', desc: 'Majestic marble mosque with soaring twin minarets and grand red prayer rugs.' },
+
+  // Schools, Academies & Universities
+  { name: 'Bayt Al-Hikma University', x: -48, z: -25, color: '#3b82f6', desc: 'Higher learning lecture amphitheater, scholarship podium, and academic symposiums.' },
+  { name: 'Madrasa Quran Academy', x: -22, z: -42, color: '#14b8a6', desc: 'Historic manuscript library, low wooden study rihlas, and ethical debate colonnade.' },
+  { name: 'Ibn Sina Medical School & Research', x: 140, z: 40, color: '#2563eb', desc: 'Botanical research gardens, medicinal herb conservatory, and tiered lecture hall.' },
+  { name: 'Al-Khwarizmi Astronomy & STEM Academy', x: -140, z: -40, color: '#0284c7', desc: 'Observatory dome with giant bronze astrolabe, algebra hall, and science terrace.' },
+  { name: 'Al-Zahra Youth & International Academy', x: -70, z: 140, color: '#06b6d4', desc: 'Modern educational campus with open courtyards, library wings, and study lawns.' },
+  { name: 'Dar Al-Quran & Calligraphy Conservatory', x: 70, z: -130, color: '#0d9488', desc: 'Illuminated calligraphy exhibitions, gold-leaf manuscript desks, and Quranic arts.' },
+
+  // Civic, Sports & Waterfront
+  { name: 'Souq Al-Madina Marketplace', x: -28, z: 24, color: '#f59e0b', desc: 'Living merchant bazaar, spice stalls, community jobs, and sadaqah donation counters.' },
+  { name: 'Baraka Football Arena', x: -45, z: 52, color: '#10b981', desc: 'Full regulation soccer pitch with floodlights, goal nets, and dynamic dribbling physics.' },
+  { name: 'Central Boulevard & Esplanade', x: 0, z: 0, color: '#e2e8f0', desc: 'Broad four-lane avenue with autonomous traffic, palm promenades, and civic streetlamps.' },
+  { name: 'Residential Quarter & Private Homes', x: 18, z: 18, color: '#a855f7', desc: 'Comfortable citizen apartments with private Moroccan divans, bedrooms, and gardens.' },
+  { name: 'Public Park & Central Fountain', x: 32, z: -28, color: '#06b6d4', desc: 'Lush green lawns, stone water fountain, peaceful shaded pergolas, and park benches.' },
+  { name: 'Oasis Botanical Palm Grove', x: 150, z: -130, color: '#10b981', desc: 'Expansive date palm grove with stone walking paths, waterways, and shaded pavilions.' },
+  { name: 'Grand Marina Harbor Waterfront', x: -160, z: 0, color: '#38bdf8', desc: 'Scenic waterfront wooden pier promenade overlooking the sunset bay.' },
+];
+
+export default function ExpandedWorldMapModal({
+  isOpen,
+  onClose,
+  playerX,
+  playerZ,
+  currentDistrict,
+  onFastTravel,
+}: ExpandedWorldMapModalProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn font-sora">
+      <div className="bg-[#0e121b] border-2 border-emerald-500/50 rounded-3xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-white">
+        {/* Header */}
+        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-black/40">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+              <Compass className="w-5 h-5 animate-spin-slow" />
+            </div>
+            <div>
+              <h3 className="text-base sm:text-lg font-black uppercase text-white tracking-wide">
+                BARAKA CITY · SATELLITE RADAR MAP
+              </h3>
+              <span className="text-[10px] font-hud text-emerald-400">
+                LIVING 3D METROPOLIS · CURRENT DISTRICT: {currentDistrict.toUpperCase()}
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Interactive Holographic City Map Grid */}
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 flex-1">
+          {/* Visual 2D Map Container */}
+          <div className="relative w-full aspect-[16/10] bg-[#07090e] border border-white/10 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+            {/* Ambient Grid Lines */}
+            <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
+            
+            {/* Main Road Cross Axes */}
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-8 bg-zinc-800/60 border-y border-white/10 flex items-center justify-center">
+              <span className="text-[8px] font-hud text-zinc-500 tracking-widest uppercase">CENTRAL BOULEVARD (EAST - WEST)</span>
+            </div>
+            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-zinc-800/60 border-x border-white/10 flex items-center justify-center">
+              <span className="text-[8px] font-hud text-zinc-500 tracking-widest uppercase [writing-mode:vertical-lr] rotate-180">NORTH - SOUTH PROMENADE</span>
+            </div>
+
+            {/* Landmark Markers on 2D map */}
+            {DISTRICT_ZONES.map((dist) => {
+              // Map expanded world coords [-180, 180] to percentage [5%, 95%]
+              const posX = 50 + (dist.x / 200) * 44;
+              const posZ = 50 + (dist.z / 200) * 44;
+
+              return (
+                <div
+                  key={dist.name}
+                  style={{ left: `${posX}%`, top: `${posZ}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer"
+                  onClick={() => {
+                    onFastTravel?.(dist.x, dist.z, dist.name);
+                    onClose();
+                  }}
+                >
+                  <div
+                    style={{ backgroundColor: dist.color }}
+                    className="w-4 h-4 rounded-full border-2 border-white shadow-lg group-hover:scale-125 transition-transform flex items-center justify-center"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-black/70" />
+                  </div>
+                  <span className="mt-1 px-1.5 py-0.5 rounded bg-black/80 border border-white/10 text-[9px] font-bold uppercase whitespace-nowrap text-zinc-200 group-hover:text-emerald-300">
+                    {dist.name.split(' ')[0]}
+                  </span>
+                </div>
+              );
+            })}
+
+            {/* Current Player Indicator */}
+            {(() => {
+              const pLeft = 50 + (playerX / 200) * 44;
+              const pTop = 50 + (playerZ / 200) * 44;
+              return (
+                <div
+                  style={{ left: `${pLeft}%`, top: `${pTop}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none z-20"
+                >
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/30 border-2 border-emerald-400 animate-ping absolute" />
+                  <div className="w-4 h-4 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-lg">
+                    <Navigation className="w-2.5 h-2.5 text-black" />
+                  </div>
+                  <span className="mt-1 px-2 py-0.5 rounded-full bg-emerald-500 text-black font-black text-[8px] uppercase tracking-wider shadow">
+                    YOU ARE HERE
+                  </span>
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* District Directory & Fast Wayfinding */}
+          <div>
+            <div className="text-xs font-black uppercase tracking-wider text-emerald-400 mb-2.5 flex items-center gap-1.5">
+              <Compass className="w-3.5 h-3.5" /> DISTRICT DIRECTORY & FAST WAYFINDING
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {DISTRICT_ZONES.map((dist) => (
+                <div
+                  key={dist.name}
+                  className="p-3 bg-black/50 border border-white/10 rounded-2xl flex items-center justify-between gap-3 hover:border-emerald-500/40 transition-colors"
+                >
+                  <div className="truncate">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: dist.color }} />
+                      <span className="text-xs font-bold text-white uppercase truncate">{dist.name}</span>
+                    </div>
+                    <p className="text-[10px] text-zinc-400 truncate mt-0.5">{dist.desc}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      onFastTravel?.(dist.x, dist.z, dist.name);
+                      onClose();
+                    }}
+                    className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-black text-[10px] font-black uppercase rounded-xl transition-all cursor-pointer shrink-0 active:scale-95 shadow"
+                  >
+                    GO TO
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
