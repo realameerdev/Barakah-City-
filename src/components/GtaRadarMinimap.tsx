@@ -381,13 +381,13 @@ export default function GtaRadarMinimap({
           </span>
         </div>
 
-        {/* Map Size & Zoom Buttons */}
+        {/* Map Size & Zoom Buttons with Subtle Hover Animations */}
         <div className="flex items-center gap-1">
           {/* Reduce Size Button */}
           <button
             type="button"
             onClick={handleReduceMap}
-            className="w-4 h-4 rounded bg-white/10 hover:bg-rose-500 hover:text-white text-zinc-300 flex items-center justify-center transition-colors cursor-pointer"
+            className="dash-icon-btn w-4 h-4 rounded bg-white/10 hover:bg-rose-500 hover:text-white text-zinc-300 flex items-center justify-center transition-all cursor-pointer hover:scale-120 active:scale-90"
             title="Reduce Map Size (-)"
           >
             <Minus className="w-2.5 h-2.5" />
@@ -397,7 +397,7 @@ export default function GtaRadarMinimap({
           <button
             type="button"
             onClick={handleEnlargeMap}
-            className="w-4 h-4 rounded bg-white/10 hover:bg-emerald-500 hover:text-black text-zinc-300 flex items-center justify-center transition-colors cursor-pointer"
+            className="dash-icon-btn w-4 h-4 rounded bg-white/10 hover:bg-emerald-500 hover:text-black text-zinc-300 flex items-center justify-center transition-all cursor-pointer hover:scale-120 active:scale-90"
             title="Enlarge Map Size (+)"
           >
             <Plus className="w-2.5 h-2.5" />
@@ -407,8 +407,8 @@ export default function GtaRadarMinimap({
           <button
             type="button"
             onClick={handleToggleRadarZoom}
-            className={`w-4 h-4 rounded flex items-center justify-center transition-colors cursor-pointer ${
-              currentRadarZoom !== 1.0 ? 'bg-cyan-400 text-black font-black' : 'bg-white/10 text-zinc-300 hover:bg-white/20'
+            className={`dash-icon-btn w-4 h-4 rounded flex items-center justify-center transition-all cursor-pointer hover:scale-120 active:scale-90 ${
+              currentRadarZoom !== 1.0 ? 'bg-cyan-400 text-black font-black shadow-[0_0_8px_rgba(34,211,238,0.6)]' : 'bg-white/10 text-zinc-300 hover:bg-white/20 hover:text-white'
             }`}
             title={`Radar Range Zoom: ${currentRadarZoom}x (Click to cycle)`}
           >
@@ -428,7 +428,7 @@ export default function GtaRadarMinimap({
                 e.stopPropagation();
                 onResetPosition?.();
               }}
-              className="text-[7px] font-black px-1 py-0.5 bg-white/10 hover:bg-emerald-500 hover:text-black rounded text-zinc-300 transition-colors uppercase flex items-center gap-0.5 cursor-pointer ml-0.5"
+              className="dash-icon-btn text-[7px] font-black px-1 py-0.5 bg-white/10 hover:bg-emerald-500 hover:text-black rounded text-zinc-300 transition-all uppercase flex items-center gap-0.5 cursor-pointer ml-0.5 hover:scale-110 active:scale-90"
               title="Reset Radar Map back to default corner position"
             >
               <RotateCcw className="w-2 h-2" />

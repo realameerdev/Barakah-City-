@@ -218,18 +218,19 @@ export default function CinematicGameEntry({
     }
   }, []);
 
-  // Stepped loading scheduler (15% -> 45% -> 75% -> 100%)
+  // Fast, responsive loading scheduler for immediate readiness
   useEffect(() => {
-    const t1 = setTimeout(() => setLoadingStage(15), 350);
-    const t2 = setTimeout(() => setLoadingStage(45), 1300);
-    const t3 = setTimeout(() => setLoadingStage(75), 2350);
-    const t4 = setTimeout(() => setLoadingStage(100), 3400);
+    const t1 = setTimeout(() => setLoadingStage(50), 100);
+    const t2 = setTimeout(() => setLoadingStage(85), 250);
+    const t3 = setTimeout(() => {
+      setLoadingStage(100);
+      setIsLoaded(true);
+    }, 450);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      clearTimeout(t4);
     };
   }, []);
 
@@ -245,7 +246,7 @@ export default function CinematicGameEntry({
           return curr;
         }
         const diff = loadingStage - curr;
-        const step = Math.max(0.75, diff * 0.12);
+        const step = Math.max(1.8, diff * 0.35);
         const next = Math.min(loadingStage, curr + step);
         if (next >= 100 && !isLoaded) {
           setIsLoaded(true);
@@ -289,23 +290,21 @@ export default function CinematicGameEntry({
     }
   }, []);
 
-  // Circular Enter Button click handler
+  // Circular Enter Button click handler - Enters dashboard immediately without delay
   const handleEnterClick = useCallback(() => {
-    if (isEntering || !isLoaded) return;
+    if (isEntering) return;
     setIsEntering(true);
     onStartTransition?.();
     playEntranceChime();
-
-    setTimeout(() => {
-      onEnterWorld(initialWorld);
-    }, 800);
-  }, [isEntering, isLoaded, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
+    // Immediate world entry - no delay
+    onEnterWorld(initialWorld);
+  }, [isEntering, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
 
   // Global Keyboard shortcuts: Enter, Space, Arrows
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Enter' || (e.code === 'Space' && isLoaded && e.target === document.body)) {
-        if (!isEntering && isLoaded) {
+      if (e.code === 'Enter' || (e.code === 'Space' && e.target === document.body)) {
+        if (!isEntering) {
           e.preventDefault();
           handleEnterClick();
         }
@@ -313,7 +312,7 @@ export default function CinematicGameEntry({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEntering, isLoaded, handleEnterClick]);
+  }, [isEntering, handleEnterClick]);
 
   // Continuous 3D Carousel Render Loop with Inertia & Visibility Handling
   useEffect(() => {
@@ -660,8 +659,8 @@ export default function CinematicGameEntry({
           ===================================================================== */}
       <header className="relative z-30 pt-[max(env(safe-area-inset-top),0.75rem)] px-3 xs:px-5 sm:px-8 pb-2 flex items-center justify-between shrink-0 bg-black/60 md:bg-black/40 backdrop-blur-md border-b border-white/10 pointer-events-auto">
         {/* Left: Golden Mosque Arch Icon + "BARAKA CITY" */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 text-amber-300 flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 group cursor-pointer transition-transform duration-200 hover:scale-102">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 text-amber-300 flex items-center justify-center shrink-0 group-hover:rotate-6 group-hover:scale-110 transition-transform duration-200">
             <svg
               viewBox="0 0 40 40"
               className="w-full h-full fill-none stroke-amber-300 stroke-[2.2] drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]"
@@ -671,28 +670,32 @@ export default function CinematicGameEntry({
               <circle cx="20" cy="5" r="1.5" className="fill-amber-300" />
             </svg>
           </div>
-          <span className="font-sora font-extrabold tracking-[0.2em] uppercase text-white text-[clamp(0.72rem,1.2vw,0.9rem)] leading-none drop-shadow">
+          <span className="font-sora font-extrabold tracking-[0.2em] uppercase text-white group-hover:text-amber-300 transition-colors text-[clamp(0.72rem,1.2vw,0.9rem)] leading-none drop-shadow">
             BARAKA CITY
           </span>
         </div>
 
-        {/* Right: Citizen Name Pill, Nav, & Audio Toggle */}
-        {/* Right: Nav & Audio Toggle */}
+        {/* Right: Main Navigation Menu with Subtle Hover Animations & Audio Toggle */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <nav className="hidden lg:flex items-center gap-2.5 text-[clamp(0.65rem,1vw,0.78rem)] font-hud text-amber-200/90 font-medium tracking-[0.22em] uppercase">
-            <span>FAITH</span>
-            <span className="text-amber-400/50">•</span>
-            <span>KNOWLEDGE</span>
-            <span className="text-amber-400/50">•</span>
-            <span>COMMUNITY</span>
-            <span className="text-amber-400/50">•</span>
-            <span>FUTURE</span>
+          <nav className="hidden sm:flex items-center gap-1 sm:gap-1.5 text-[clamp(0.65rem,1vw,0.78rem)] font-hud text-amber-200/90 font-medium tracking-[0.22em] uppercase">
+            {['FAITH', 'KNOWLEDGE', 'COMMUNITY', 'FUTURE'].map((item, idx) => (
+              <React.Fragment key={item}>
+                {idx > 0 && <span className="text-amber-400/40 select-none">•</span>}
+                <button
+                  type="button"
+                  className="nav-hover-pill px-2 py-1 rounded-lg text-amber-200/85 hover:text-amber-100 font-bold cursor-pointer border border-transparent hover:border-amber-400/30"
+                  title={`Baraka ${item} Pillar`}
+                >
+                  <span>{item}</span>
+                </button>
+              </React.Fragment>
+            ))}
           </nav>
 
           {/* Audio Synthesizer Toggle */}
           <button
             onClick={() => setIsAudioEnabled(!isAudioEnabled)}
-            className="p-1 sm:p-1.5 rounded-lg bg-black/60 border border-white/10 hover:border-amber-400/50 text-zinc-300 hover:text-amber-300 transition-colors cursor-pointer flex items-center gap-1.5"
+            className="dash-gold-btn p-1 sm:p-1.5 rounded-lg bg-black/60 border border-white/10 hover:border-amber-400 text-zinc-300 hover:text-amber-300 transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-md"
             title="Toggle Audio"
             aria-label="Toggle Audio"
           >
@@ -908,9 +911,16 @@ export default function CinematicGameEntry({
           Safe-area compliant, clean & non-obstructive
           ===================================================================== */}
       <footer className="relative z-30 pb-[max(env(safe-area-inset-bottom),0.75rem)] px-4 sm:px-8 pt-2 flex items-center justify-center shrink-0 bg-black/60 md:bg-black/40 backdrop-blur-md border-t border-white/10 pointer-events-auto">
-        <span className="text-[clamp(0.65rem,1.1vw,0.85rem)] font-hud text-zinc-400 tracking-[0.3em] uppercase text-center font-medium drop-shadow">
-          EXPLORE &nbsp;•&nbsp; LEARN &nbsp;•&nbsp; BUILD &nbsp;•&nbsp; BELONG
-        </span>
+        <div className="flex items-center gap-1.5 sm:gap-3 text-[clamp(0.62rem,1vw,0.8rem)] font-hud text-zinc-400 tracking-[0.28em] uppercase text-center font-medium drop-shadow">
+          {['EXPLORE', 'LEARN', 'BUILD', 'BELONG'].map((word, idx) => (
+            <React.Fragment key={word}>
+              {idx > 0 && <span className="text-zinc-600 select-none">•</span>}
+              <span className="nav-hover-pill px-1.5 sm:px-2 py-0.5 rounded cursor-default text-zinc-400 hover:text-amber-300">
+                {word}
+              </span>
+            </React.Fragment>
+          ))}
+        </div>
       </footer>
 
       {/* Smooth Cinematic World Transition Veil */}

@@ -204,7 +204,7 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Silk-smooth programmatic navigation helper with cross-fade veil
+  // Instant programmatic navigation helper for immediate dashboard entry
   const navigateTo = (view: 'landing' | 'dashboard', targetWorld?: string) => {
     if (view === 'dashboard') {
       setIsAzanFading(true);
@@ -214,20 +214,15 @@ export default function App() {
     if (targetWorld) {
       setSelectedWorld(targetWorld);
     }
-    setIsPageTransitioning(true);
-    setTimeout(() => {
-      setActiveView(view);
-      const targetPath = view === 'dashboard' ? '/dashboard' : '/';
-      if (typeof window !== 'undefined' && window.location.pathname !== targetPath) {
-        window.history.pushState({}, '', targetPath);
-      }
-      if (view === 'landing') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      setTimeout(() => {
-        setIsPageTransitioning(false);
-      }, 150);
-    }, 220);
+    // Immediate state switch - enters dashboard immediately as requested
+    setActiveView(view);
+    const targetPath = view === 'dashboard' ? '/dashboard' : '/';
+    if (typeof window !== 'undefined' && window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+    if (view === 'landing') {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
   };
 
   // Silk-smooth scroll to section with sticky header offset

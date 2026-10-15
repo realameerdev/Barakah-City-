@@ -128,15 +128,15 @@ export default function GtaActionControls({
                       onClick={() => {
                         item.handler();
                       }}
-                      className={`py-2 px-1 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 cursor-pointer ${
+                      className={`dash-icon-btn py-2 px-1 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:scale-105 ${
                         item.isActive
                           ? 'bg-emerald-500 border-emerald-400 text-black font-extrabold shadow-lg shadow-emerald-500/30'
-                          : 'bg-black/60 border-white/10 text-zinc-300 hover:text-white hover:border-emerald-500/40'
+                          : 'bg-black/60 border-white/10 text-zinc-300 hover:text-white hover:border-emerald-400'
                       }`}
                       title={item.label}
                     >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span className="text-[8px] font-bold uppercase tracking-tight truncate max-w-[48px]">
+                      <Icon className="w-4 h-4 shrink-0 group-hover:scale-115 group-hover:-translate-y-0.5 transition-transform" />
+                      <span className="text-[8px] font-bold uppercase tracking-tight truncate max-w-[48px] group-hover:text-emerald-300 transition-colors">
                         {item.label}
                       </span>
                     </button>
@@ -159,15 +159,15 @@ export default function GtaActionControls({
                       onClick={() => {
                         item.handler();
                       }}
-                      className={`py-2 px-1.5 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 cursor-pointer ${
+                      className={`dash-icon-btn py-2 px-1.5 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:scale-105 ${
                         item.isActive
                           ? 'bg-emerald-500 border-emerald-400 text-black font-extrabold shadow-lg shadow-emerald-500/30'
-                          : 'bg-black/60 border-white/10 text-zinc-300 hover:text-white hover:border-emerald-500/40'
+                          : 'bg-black/60 border-white/10 text-zinc-300 hover:text-white hover:border-emerald-400'
                       }`}
                       title={item.label}
                     >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span className="text-[8px] font-bold uppercase tracking-tight truncate max-w-[55px]">
+                      <Icon className="w-4 h-4 shrink-0 group-hover:scale-115 group-hover:-translate-y-0.5 transition-transform" />
+                      <span className="text-[8px] font-bold uppercase tracking-tight truncate max-w-[55px] group-hover:text-emerald-300 transition-colors">
                         {item.label}
                       </span>
                     </button>
@@ -223,15 +223,15 @@ export default function GtaActionControls({
             {/* Actions & Emotes Hub Toggle Button */}
             <button
               onClick={() => setIsWheelOpen(!isWheelOpen)}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-gold-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] ${
                 isWheelOpen
                   ? 'bg-amber-400 border-amber-300 text-black font-black ring-2 ring-amber-400/40'
-                  : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400 hover:text-white'
+                  : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-amber-400 hover:text-white'
               }`}
               title="Open Actions & Emotes Hub [Emotes, Gestures, Expressions]"
             >
-              <Smile className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-              <span className="text-[8.5px] sm:text-[9.5px] font-black uppercase tracking-wider">
+              <Smile className="w-3.5 h-3.5 text-amber-300 group-hover:rotate-12 group-hover:scale-110 transition-transform shrink-0" />
+              <span className="text-[8.5px] sm:text-[9.5px] font-black uppercase tracking-wider group-hover:text-amber-200 transition-colors">
                 ACTIONS
               </span>
             </button>
@@ -239,15 +239,15 @@ export default function GtaActionControls({
             {/* Stand Outside Button */}
             <button
               onClick={onStand}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-icon-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(16,185,129,0.35)] ${
                 !isSitting && !isPraying
                   ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300 font-bold'
                   : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400'
               }`}
               title="Stand Up upright [Key Space or Stand]"
             >
-              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider">
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-115 transition-transform" />
+              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                 STAND
               </span>
             </button>
@@ -255,15 +255,15 @@ export default function GtaActionControls({
             {/* Pray Outside Button */}
             <button
               onClick={onPray}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-icon-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(16,185,129,0.35)] ${
                 isPraying
                   ? 'bg-emerald-500 border-emerald-400 text-black font-bold ring-2 ring-emerald-400/50'
                   : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400'
               }`}
               title="Sanctuary Prayer & Remembrance [Key P]"
             >
-              <Compass className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider">
+              <Compass className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-45 transition-transform" />
+              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                 PRAY
               </span>
             </button>
@@ -274,15 +274,15 @@ export default function GtaActionControls({
             {/* Dedicated Sit Button */}
             <button
               onClick={onSit}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-icon-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(16,185,129,0.35)] ${
                 isSitting
                   ? 'bg-emerald-500 border-emerald-400 text-black font-bold ring-2 ring-emerald-400/50'
                   : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400'
               }`}
               title="Sit down on rug, bench or floor"
             >
-              <Armchair className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider">
+              <Armchair className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-115 transition-transform" />
+              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                 SIT
               </span>
             </button>
@@ -290,15 +290,15 @@ export default function GtaActionControls({
             {/* Walk Quick Button */}
             <button
               onClick={onWalk}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-icon-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(16,185,129,0.35)] ${
                 !isRunMode
                   ? 'bg-emerald-500/25 border-emerald-400 text-emerald-300 font-bold'
                   : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400'
               }`}
               title="Regular Walking Pace"
             >
-              <Footprints className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider">
+              <Footprints className="w-3.5 h-3.5 text-emerald-400 group-hover:-translate-x-0.5 transition-transform" />
+              <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                 WALK
               </span>
             </button>
@@ -306,14 +306,14 @@ export default function GtaActionControls({
             {/* Sprint / Run Mode Toggle */}
             <button
               onClick={isRunMode ? onWalk : onRun}
-              className={`h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer ${
+              className={`dash-icon-btn h-9 px-2 sm:px-2.5 rounded-2xl flex items-center gap-1 border shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer group hover:-translate-y-0.5 hover:shadow-[0_0_18px_rgba(16,185,129,0.45)] ${
                 isRunMode
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-400 border-emerald-300 text-black font-black ring-2 ring-emerald-400/40 shadow-emerald-500/20'
                   : 'bg-[#101520]/90 border-white/15 text-zinc-200 hover:border-emerald-400'
               }`}
               title="Toggle Sprint / Fast Run [Shift]"
             >
-              <Zap className={`w-3.5 h-3.5 ${isRunMode ? 'text-black' : 'text-amber-400'}`} />
+              <Zap className={`w-3.5 h-3.5 group-hover:scale-125 transition-transform ${isRunMode ? 'text-black' : 'text-amber-400'}`} />
               <span className="text-[8.5px] sm:text-[9px] font-black uppercase tracking-wider">
                 {isRunMode ? 'SPRINT' : 'RUN'}
               </span>
@@ -324,11 +324,11 @@ export default function GtaActionControls({
         {/* HERO INTERACT BUTTON (Primary GTA action centerpiece) */}
         <button
           onClick={onInteract}
-          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black flex flex-col items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.5)] border-2 border-white active:scale-90 transition-all cursor-pointer group shrink-0"
+          className="dash-icon-btn w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black flex flex-col items-center justify-center shadow-[0_4px_25px_rgba(16,185,129,0.5)] border-2 border-white active:scale-90 transition-all cursor-pointer group shrink-0 hover:scale-108 hover:shadow-[0_0_35px_rgba(16,185,129,0.75)]"
           title="Interact with landmarks, shops, vehicles, and residents [Key E]"
         >
-          <Sliders className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform" />
-          <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tighter mt-0.5 font-hud">
+          <Sliders className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-45 group-hover:scale-110 transition-transform duration-300" />
+          <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tighter mt-0.5 font-hud group-hover:scale-105 transition-transform">
             INTERACT
           </span>
         </button>

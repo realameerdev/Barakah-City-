@@ -6,8 +6,10 @@ interface AzanAudioControllerProps {
   isFading?: boolean;
 }
 
-// Subtle, atmospheric ambient background level (respectful and cinematic, not jarring)
-const TARGET_VOLUME = 0.20;
+// Subtle, atmospheric ambient background level
+// In the dashboard/game, plays gently underneath gameplay so all coin chimes and action SFX remain prominent
+const LANDING_VOLUME = 0.22;
+const DASHBOARD_VOLUME = 0.14;
 const PUBLIC_FALLBACK_AUDIO_PATH = '/assets/audio/azan.mp3';
 
 // Singleton instance to prevent duplicate audio elements across fast refreshes or rerenders
@@ -18,7 +20,7 @@ export const AzanAudioController: React.FC<AzanAudioControllerProps> = ({
   activeView,
   isFading = false,
 }) => {
-  const isEnteringWorldRef = useRef(false);
+  const isMutedRef = useRef(false);
 
   // Clear any active volume fading interval safely
   const clearFadeInterval = () => {
@@ -28,51 +30,37 @@ export const AzanAudioController: React.FC<AzanAudioControllerProps> = ({
     }
   };
 
-  // Smoothly fade in audio to TARGET_VOLUME
-  const fadeIn = (audio: HTMLAudioElement, targetVol = TARGET_VOLUME, durationMs = 1200) => {
-    clearFadeInterval();
-    const steps = 20;
-    const intervalMs = Math.max(20, Math.floor(durationMs / steps));
-    const stepIncrement = targetVol / steps;
-    audio.volume = 0;
-
-    globalFadeInterval = window.setInterval(() => {
-      if (!globalAudioInstance || globalAudioInstance !== audio) {
-        clearFadeInterval();
-        return;
-      }
-      const nextVol = Math.min(targetVol, globalAudioInstance.volume + stepIncrement);
-      globalAudioInstance.volume = nextVol;
-      if (nextVol >= targetVol) {
-        clearFadeInterval();
-      }
-    }, intervalMs);
-  };
-
-  // Smoothly fade out audio to 0 and pause
-  const fadeOut = (audio: HTMLAudioElement, durationMs = 1000) => {
+  // Smoothly adjust audio volume to targetVol
+  const fadeTo = (audio: HTMLAudioElement, targetVol: number, durationMs = 1000) => {
     clearFadeInterval();
     const currentVol = audio.volume;
-    if (currentVol <= 0.01) {
-      audio.pause();
-      audio.volume = 0;
+    const diff = targetVol - currentVol;
+
+    if (Math.abs(diff) < 0.01) {
+      audio.volume = targetVol;
+      if (targetVol <= 0.01) {
+        audio.pause();
+      }
       return;
     }
 
     const steps = 20;
     const intervalMs = Math.max(20, Math.floor(durationMs / steps));
-    const stepDecrement = currentVol / steps;
+    const stepIncrement = diff / steps;
 
     globalFadeInterval = window.setInterval(() => {
       if (!globalAudioInstance || globalAudioInstance !== audio) {
         clearFadeInterval();
         return;
       }
-      const nextVol = Math.max(0, globalAudioInstance.volume - stepDecrement);
+      const nextVol = Math.max(0, Math.min(1, globalAudioInstance.volume + stepIncrement));
       globalAudioInstance.volume = nextVol;
-      if (nextVol <= 0.01) {
-        globalAudioInstance.pause();
-        globalAudioInstance.volume = 0;
+
+      if ((stepIncrement > 0 && nextVol >= targetVol) || (stepIncrement < 0 && nextVol <= targetVol)) {
+        globalAudioInstance.volume = targetVol;
+        if (targetVol <= 0.01) {
+          globalAudioInstance.pause();
+        }
         clearFadeInterval();
       }
     }, intervalMs);
@@ -101,41 +89,39 @@ export const AzanAudioController: React.FC<AzanAudioControllerProps> = ({
     const audio = globalAudioInstance;
     if (!audio) return;
 
-    // Check if we should play or fade out
-    if (activeView === 'landing' && !isFading) {
-      isEnteringWorldRef.current = false;
+    // Determine target background volume:
+    // When in dashboard/game: plays gently underneath (DASHBOARD_VOLUME)
+    // When on landing page: plays cinematic entrance (LANDING_VOLUME)
+    const baseTargetVolume = activeView === 'dashboard' ? DASHBOARD_VOLUME : LANDING_VOLUME;
+    const targetVolume = isFading || isMutedRef.current ? 0 : baseTargetVolume;
 
-      // If already playing smoothly, do not interrupt or restart
-      if (!audio.paused && audio.volume > 0) {
-        return;
-      }
+    // If audio is already playing, smoothly adjust to the appropriate background volume
+    if (!audio.paused) {
+      fadeTo(audio, targetVolume, 1200);
+      return;
+    }
 
-      // If already started playing but volume was 0, fade in
-      if (!audio.paused) {
-        fadeIn(audio, TARGET_VOLUME, 1000);
-        return;
-      }
-
-      // Try autoplaying immediately where browser audio policies permit
+    // If audio is paused and we want sound, attempt playback with graceful autoplay handling
+    if (targetVolume > 0) {
       audio.volume = 0;
       const playPromise = audio.play();
 
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            // Autoplay permitted: smoothly fade in
-            fadeIn(audio, TARGET_VOLUME, 1200);
+            fadeTo(audio, targetVolume, 1500);
           })
           .catch(() => {
-            // Browser autoplay policy restricted audio before user gesture.
-            // Setup listener on first user interaction anywhere on the window.
+            // Autoplay policy prevented immediate playback before user gesture.
+            // Setup listener on first user interaction (touch, click, keypress) anywhere in window
             const handleFirstUserInteraction = () => {
-              if (!isEnteringWorldRef.current && audio.paused) {
+              if (audio.paused && !isMutedRef.current) {
                 audio.volume = 0;
                 audio
                   .play()
                   .then(() => {
-                    fadeIn(audio, TARGET_VOLUME, 1000);
+                    const currentTarget = activeView === 'dashboard' ? DASHBOARD_VOLUME : LANDING_VOLUME;
+                    fadeTo(audio, currentTarget, 1200);
                   })
                   .catch(() => {});
               }
@@ -155,15 +141,35 @@ export const AzanAudioController: React.FC<AzanAudioControllerProps> = ({
             window.addEventListener('click', handleFirstUserInteraction, { once: true, passive: true });
           });
       }
-    } else {
-      // Transitioning into game or leaving landing screen: smoothly fade out
-      isEnteringWorldRef.current = true;
-      if (!audio.paused) {
-        fadeOut(audio, 1000);
-      }
     }
+
+    // Listen for in-game ambient audio toggle events from ThreeGameWorld settings
+    const handleAmbientToggle = (e: Event) => {
+      const customEvent = e as CustomEvent<{ enabled: boolean }>;
+      const isEnabled = customEvent.detail ? customEvent.detail.enabled : true;
+      isMutedRef.current = !isEnabled;
+
+      if (!isEnabled) {
+        fadeTo(audio, 0, 600);
+      } else {
+        const resumeVol = activeView === 'dashboard' ? DASHBOARD_VOLUME : LANDING_VOLUME;
+        if (audio.paused) {
+          audio.volume = 0;
+          audio.play().then(() => fadeTo(audio, resumeVol, 800)).catch(() => {});
+        } else {
+          fadeTo(audio, resumeVol, 800);
+        }
+      }
+    };
+
+    window.addEventListener('baraka_ambient_audio_toggle', handleAmbientToggle);
+
+    return () => {
+      window.removeEventListener('baraka_ambient_audio_toggle', handleAmbientToggle);
+    };
   }, [activeView, isFading]);
 
   return null;
 };
+
 export default AzanAudioController;
