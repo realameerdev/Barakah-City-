@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { Volume2, VolumeX, Play, Pause, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
+import { Volume2, VolumeX, Play, Pause, ChevronLeft, ChevronRight, Compass, Shield } from 'lucide-react';
 
 // Photorealistic Islamic architectural & cultural showcase imagery from project
 import heroImg from '../assets/images/hero_avatar_mosque_1791286969661.jpg';
@@ -22,6 +22,7 @@ interface CinematicGameEntryProps {
   onStartTransition?: () => void;
   onlineCount?: number;
   initialWorld?: string;
+  onOpenProfile?: () => void;
 }
 
 // 8 Interactive Showcase Cards representing the real Baraka City dashboard & game features
@@ -151,11 +152,12 @@ export default function CinematicGameEntry({
   onStartTransition,
   onlineCount = 1420,
   initialWorld = 'Abuja Metropolis',
+  onOpenProfile,
 }: CinematicGameEntryProps) {
-  // Stepped loading sequence: 0% -> 15% -> 45% -> 75% -> 100%
-  const [loadingStage, setLoadingStage] = useState<number>(0);
-  const [displayedProgress, setDisplayedProgress] = useState<number>(0);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  // Immediate readiness: button is active immediately on load
+  const [loadingStage, setLoadingStage] = useState<number>(100);
+  const [displayedProgress, setDisplayedProgress] = useState<number>(100);
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const [isEntering, setIsEntering] = useState<boolean>(false);
   const [isAudioEnabled, setIsAudioEnabled] = useState<boolean>(false);
 
@@ -216,22 +218,6 @@ export default function CinematicGameEntry({
       mediaQuery.addEventListener('change', listener);
       return () => mediaQuery.removeEventListener('change', listener);
     }
-  }, []);
-
-  // Fast, responsive loading scheduler for immediate readiness
-  useEffect(() => {
-    const t1 = setTimeout(() => setLoadingStage(50), 100);
-    const t2 = setTimeout(() => setLoadingStage(85), 250);
-    const t3 = setTimeout(() => {
-      setLoadingStage(100);
-      setIsLoaded(true);
-    }, 450);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
   }, []);
 
   // Smooth number interpolation between the paused stages
@@ -705,6 +691,19 @@ export default function CinematicGameEntry({
               <VolumeX className="w-3.5 h-3.5 text-zinc-400" />
             )}
           </button>
+
+          {/* Profile & Guild Reputation Modal Trigger */}
+          {onOpenProfile && (
+            <button
+              onClick={onOpenProfile}
+              className="dash-gold-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-black/60 border border-amber-400/30 hover:border-amber-400 text-amber-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-md text-[10px] sm:text-xs font-hud uppercase tracking-wider"
+              title="Open Citizen Profile & Guild Reputation"
+              aria-label="Citizen Profile & Guild Reputation"
+            >
+              <Shield className="w-3.5 h-3.5 text-amber-300" />
+              <span className="hidden xs:inline">PROFILE & GUILD</span>
+            </button>
+          )}
         </div>
       </header>
 

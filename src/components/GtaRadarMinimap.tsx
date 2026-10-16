@@ -35,6 +35,20 @@ const CITY_LANDMARKS: LandmarkBlip[] = [
   { name: 'Jerusalem Al-Quds', x: -80, z: 0, color: '#eab308', type: 'mosque' },
   { name: 'Kuala Lumpur City', x: -80, z: -65, color: '#a855f7', type: 'garden' },
 
+  // Newly Expanded Colossal Metropolises & Frontier Citadels
+  { name: 'Granada Alhambra', x: -360, z: -280, color: '#ef4444', type: 'home' },
+  { name: 'Isfahan Naqsh-e Jahan', x: 360, z: -260, color: '#0284c7', type: 'mosque' },
+  { name: 'Damascus Umayyad', x: -280, z: 320, color: '#f59e0b', type: 'mosque' },
+  { name: 'Timbuktu Sankore', x: -340, z: 420, color: '#d97706', type: 'uni' },
+  { name: 'Casablanca Ocean Mosque', x: -460, z: 120, color: '#06b6d4', type: 'marina' },
+  { name: 'Lahore Badshahi', x: 380, z: 320, color: '#dc2626', type: 'mosque' },
+  { name: 'Shiraz Nasir al-Mulk', x: 290, z: -420, color: '#f43f5e', type: 'garden' },
+  { name: 'Tripoli Red Castle', x: 80, z: -440, color: '#b45309', type: 'home' },
+  { name: 'Aleppo Citadel', x: -160, z: -420, color: '#d97706', type: 'souq' },
+  { name: 'Doha Pearl Bay', x: 440, z: 120, color: '#eab308', type: 'marina' },
+  { name: 'Tunis Ez-Zitouna', x: 220, z: -360, color: '#059669', type: 'mosque' },
+  { name: 'Muscat Mutrah Harbor', x: 460, z: -100, color: '#8b5cf6', type: 'marina' },
+
   // Masajids (Mosques)
   { name: 'Grand Mosque', x: 0, z: -58, color: '#10b981', type: 'mosque' },
   { name: 'Al-Andalus East Masjid', x: 130, z: -60, color: '#059669', type: 'mosque' },

@@ -28,6 +28,7 @@ import GtaRadarMinimap from '../components/GtaRadarMinimap';
 import ExpandedWorldMapModal from '../components/ExpandedWorldMapModal';
 import GtaActionControls from '../components/GtaActionControls';
 import { useOrientation } from '../components/LandscapeOrientationGate';
+import { UserProfileModal } from '../components/UserProfileModal';
 
 export type PerformanceTier = 'high' | 'balanced' | 'performance';
 
@@ -487,6 +488,139 @@ export const ENTERABLE_BUILDINGS: EnterTarget[] = [
     enterLabel: 'ENTER RESIDENCE',
     exitLabel: 'EXIT RESIDENCE',
   },
+  // Newly Expanded Colossal Metropolises & Citadels
+  {
+    id: 'bld_granada_palace',
+    name: 'Granada Alhambra Palace & Nasrid Portal',
+    type: 'school',
+    doorPos: { x: -360, y: 0, z: -268 },
+    insidePos: { x: -360, y: 0, z: -280 },
+    exitPos: { x: -360, y: 0, z: -264 },
+    actionKey: 'E',
+    enterLabel: 'ENTER ALHAMBRA',
+    exitLabel: 'EXIT ALHAMBRA',
+  },
+  {
+    id: 'bld_isfahan_dome',
+    name: 'Isfahan Naqsh-e Jahan & Royal Turquoise Dome',
+    type: 'masjid',
+    doorPos: { x: 360, y: 0, z: -248 },
+    insidePos: { x: 360, y: 0, z: -260 },
+    exitPos: { x: 360, y: 0, z: -244 },
+    actionKey: 'E',
+    enterLabel: 'ENTER ISFAHAN',
+    exitLabel: 'EXIT ISFAHAN',
+  },
+  {
+    id: 'bld_damascus_citadel',
+    name: 'Damascus Ancient Umayyad Citadel',
+    type: 'masjid',
+    doorPos: { x: -280, y: 0, z: 308 },
+    insidePos: { x: -280, y: 0, z: 320 },
+    exitPos: { x: -280, y: 0, z: 304 },
+    actionKey: 'E',
+    enterLabel: 'ENTER UMAYYAD CITADEL',
+    exitLabel: 'EXIT CITADEL',
+  },
+  {
+    id: 'bld_timbuktu_sankore',
+    name: 'Timbuktu Sankore University & Adobe Library',
+    type: 'school',
+    doorPos: { x: -340, y: 0, z: 408 },
+    insidePos: { x: -340, y: 0, z: 420 },
+    exitPos: { x: -340, y: 0, z: 404 },
+    actionKey: 'E',
+    enterLabel: 'ENTER SANKORE',
+    exitLabel: 'EXIT SANKORE',
+  },
+  {
+    id: 'bld_casablanca_mosque',
+    name: 'Casablanca Atlantic Ocean Mosque',
+    type: 'masjid',
+    doorPos: { x: -460, y: 0, z: 108 },
+    insidePos: { x: -460, y: 0, z: 120 },
+    exitPos: { x: -460, y: 0, z: 104 },
+    actionKey: 'E',
+    enterLabel: 'ENTER OCEAN MOSQUE',
+    exitLabel: 'EXIT MOSQUE',
+  },
+  {
+    id: 'bld_lahore_badshahi',
+    name: 'Lahore Badshahi Imperial Citadel',
+    type: 'masjid',
+    doorPos: { x: 380, y: 0, z: 308 },
+    insidePos: { x: 380, y: 0, z: 320 },
+    exitPos: { x: 380, y: 0, z: 304 },
+    actionKey: 'E',
+    enterLabel: 'ENTER BADSHAHI',
+    exitLabel: 'EXIT BADSHAHI',
+  },
+  {
+    id: 'bld_shiraz_poets',
+    name: 'Shiraz Nasir al-Mulk & Rose Pavilion',
+    type: 'school',
+    doorPos: { x: 290, y: 0, z: -408 },
+    insidePos: { x: 290, y: 0, z: -420 },
+    exitPos: { x: 290, y: 0, z: -404 },
+    actionKey: 'E',
+    enterLabel: 'ENTER ROSE PAVILION',
+    exitLabel: 'EXIT PAVILION',
+  },
+  {
+    id: 'bld_tripoli_castle',
+    name: 'Tripoli Red Castle & Maritime Fort',
+    type: 'residence',
+    doorPos: { x: 80, y: 0, z: -426 },
+    insidePos: { x: 80, y: 0, z: -440 },
+    exitPos: { x: 80, y: 0, z: -422 },
+    actionKey: 'E',
+    enterLabel: 'ENTER RED CASTLE',
+    exitLabel: 'EXIT RED CASTLE',
+  },
+  {
+    id: 'bld_aleppo_gate',
+    name: 'Aleppo Citadel & Historic Vaulted Souq',
+    type: 'shop',
+    doorPos: { x: -160, y: 0, z: -406 },
+    insidePos: { x: -160, y: 0, z: -420 },
+    exitPos: { x: -160, y: 0, z: -402 },
+    actionKey: 'E',
+    enterLabel: 'ENTER ALEPPO SOUQ',
+    exitLabel: 'EXIT SOUQ',
+  },
+  {
+    id: 'bld_doha_bay',
+    name: 'Doha Pearl Bay Modernist Citadel',
+    type: 'school',
+    doorPos: { x: 440, y: 0, z: 108 },
+    insidePos: { x: 440, y: 0, z: 120 },
+    exitPos: { x: 440, y: 0, z: 104 },
+    actionKey: 'E',
+    enterLabel: 'ENTER DOHA CITADEL',
+    exitLabel: 'EXIT CITADEL',
+  },
+  {
+    id: 'bld_tunis_zitouna',
+    name: 'Tunis Ez-Zitouna & Ancient Medina',
+    type: 'masjid',
+    doorPos: { x: 220, y: 0, z: -348 },
+    insidePos: { x: 220, y: 0, z: -360 },
+    exitPos: { x: 220, y: 0, z: -344 },
+    actionKey: 'E',
+    enterLabel: 'ENTER EZ-ZITOUNA',
+    exitLabel: 'EXIT EZ-ZITOUNA',
+  },
+  {
+    id: 'bld_mutrah_corniche',
+    name: 'Muscat Mutrah Harbor & Corniche',
+    type: 'shop',
+    doorPos: { x: 460, y: 0, z: -88 },
+    insidePos: { x: 460, y: 0, z: -100 },
+    exitPos: { x: 460, y: 0, z: -84 },
+    actionKey: 'E',
+    enterLabel: 'ENTER MUTRAH SOUQ',
+    exitLabel: 'EXIT MUTRAH SOUQ',
+  },
 ];
 
 interface ThreeGameWorldProps {
@@ -858,6 +992,7 @@ export default function ThreeGameWorld({
   const [speedBoostUntil, setSpeedBoostUntil] = useState<number>(0);
 
   // Interactive In-World Modals
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMissionsModalOpen, setIsMissionsModalOpen] = useState(false);
   const [isSouqShopOpen, setIsSouqShopOpen] = useState(false);
   const [isUniversityQuizOpen, setIsUniversityQuizOpen] = useState(false);
@@ -985,6 +1120,8 @@ export default function ThreeGameWorld({
   const previousCameraTouchRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const pinchDistanceRef = useRef<number | null>(null);
   const cameraDistanceRef = useRef<number>(9.0);
+  const isInstantZoomRef = useRef<boolean>(false);
+  const lastCameraDistanceRef = useRef<number>(9.0);
   const [joystickVector, setJoystickVector] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const joystickVectorRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isMobileControlsVisible, setIsMobileControlsVisible] = useState(false);
@@ -2582,11 +2719,13 @@ export default function ThreeGameWorld({
     showToast('Drank refreshing Moroccan Mint Tea · Speed Boost Active (60s) 🍵');
   }, [playChime, showToast]);
 
-  // Ultra Zoom Helper (from 0.6m extreme eye close-up to 220m miniature city)
+  // Ultra Zoom Helper (from 0.6m extreme eye close-up to 550m colossal metropolis overview)
   const handleSetCameraZoom = useCallback((targetDistance: number) => {
-    const clamped = Math.max(0.6, Math.min(220.0, targetDistance));
+    const clamped = Math.max(0.6, Math.min(550.0, targetDistance));
     cameraDistanceRef.current = clamped;
     setCameraZoomDistance(clamped);
+    isInstantZoomRef.current = true;
+    setCameraViewMode('third_person');
     playChime(480, 'sine', 0.12);
   }, [playChime]);
 
@@ -2733,16 +2872,16 @@ export default function ThreeGameWorld({
       skyDomeRef.current.material.needsUpdate = true;
     }
 
-    // 2. Scene Fog & Background - Clear Panoramic Visibility for Expanded Metropolises
+    // 2. Crystal-Clear Surface Visibility - Remove all dew substance across all modes (morning, afternoon, evening)
     if (mode === 'morning') {
       scene.background = new THREE.Color(0xb45309);
-      scene.fog = new THREE.FogExp2(0xb45309, 0.0018);
+      scene.fog = null;
     } else if (mode === 'afternoon') {
       scene.background = new THREE.Color(0x38bdf8);
-      scene.fog = new THREE.FogExp2(0x38bdf8, 0.0014);
+      scene.fog = null;
     } else {
       scene.background = new THREE.Color(0x090d16);
-      scene.fog = new THREE.FogExp2(0x090d16, 0.0022);
+      scene.fog = null;
     }
 
     // 3. Directional Sun/Moon Light
@@ -3000,12 +3139,12 @@ export default function ThreeGameWorld({
     sceneRef.current = scene;
     const skyHorizonColor = new THREE.Color(0x181e33);
     scene.background = skyHorizonColor;
-    scene.fog = new THREE.FogExp2(0x181e33, 0.0022);
+    scene.fog = null; // No dew substance on any surface across any mode
 
     // Dynamic Atmospheric Sky Dome with Atmosphere Gradient
     const skyCanvas = createSkyCanvas(timeMode);
     const skyTexture = new THREE.CanvasTexture(skyCanvas);
-    const skyGeo = new THREE.SphereGeometry(460, 32, 16);
+    const skyGeo = new THREE.SphereGeometry(1400, 32, 16);
     const skyMat = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide, depthWrite: false });
     const skyDome = new THREE.Mesh(skyGeo, skyMat);
     skyDomeRef.current = skyDome;
@@ -3015,12 +3154,12 @@ export default function ThreeGameWorld({
     const skylineGroup = new THREE.Group();
     skylineGroupRef.current = skylineGroup;
     const silMat = new THREE.MeshBasicMaterial({ color: 0x111625, fog: true });
-    for (let i = 0; i < 48; i++) {
-      const angle = (i / 48) * Math.PI * 2;
-      const dist = 320 + (i % 3) * 20;
-      const w = 16 + (i % 4) * 8;
-      const h = 35 + ((i * 7) % 45);
-      const d = 12;
+    for (let i = 0; i < 64; i++) {
+      const angle = (i / 64) * Math.PI * 2;
+      const dist = 780 + (i % 3) * 35;
+      const w = 20 + (i % 4) * 10;
+      const h = 45 + ((i * 7) % 55);
+      const d = 16;
       const tower = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), silMat);
       tower.position.set(Math.cos(angle) * dist, h / 2, Math.sin(angle) * dist);
       tower.rotation.y = -angle;
@@ -3037,7 +3176,7 @@ export default function ThreeGameWorld({
     // Adaptive Perspective Camera with aspect-aware Field of View
     const { fov, aspect, baseDistance } = getAdaptiveCameraParams(width, height);
     cameraDistanceRef.current = baseDistance;
-    const camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 800);
+    const camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 2800);
     cameraRef.current = camera;
     camera.position.set(0, 3.8, -8);
 
@@ -3070,14 +3209,14 @@ export default function ThreeGameWorld({
     scene.add(ambientLight);
 
     const sunLight = new THREE.DirectionalLight(0xfef3c7, 1.5);
-    sunLight.position.set(80, 110, 60);
+    sunLight.position.set(120, 160, 90);
     sunLight.castShadow = performanceTier !== 'performance';
     const shadowRes = performanceTier === 'high' ? 2048 : 1024;
     sunLight.shadow.mapSize.width = shadowRes;
     sunLight.shadow.mapSize.height = shadowRes;
     sunLight.shadow.camera.near = 1;
-    sunLight.shadow.camera.far = 400;
-    const d = 160;
+    sunLight.shadow.camera.far = 1000;
+    const d = 380;
     sunLight.shadow.camera.left = -d;
     sunLight.shadow.camera.right = d;
     sunLight.shadow.camera.top = d;
@@ -3086,22 +3225,22 @@ export default function ThreeGameWorld({
     sunLightRef.current = sunLight;
     scene.add(sunLight);
 
-    // Ground Paving / Base Grid (Wide Metropolis Scale)
-    const groundGeo = new THREE.PlaneGeometry(750, 750);
-    const groundMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.85 });
+    // Ground Paving / Base Grid (Wide Metropolis Scale - Dry Matte Surface Without Dew Substance)
+    const groundGeo = new THREE.PlaneGeometry(1600, 1600);
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.95, metalness: 0.0 });
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // 1. Roads Network & Sidewalks with Crisp Markings
-    const roadMat = new THREE.MeshStandardMaterial({ color: 0x1e2433, roughness: 0.45 });
-    const sidewalkMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.65 });
+    // 1. Roads Network & Sidewalks with Crisp Markings (Dry, Clean Matte Surface)
+    const roadMat = new THREE.MeshStandardMaterial({ color: 0x1e2433, roughness: 0.95, metalness: 0.0 });
+    const sidewalkMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.95, metalness: 0.0 });
     const lineYellowMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
     const lineWhiteMat = new THREE.MeshBasicMaterial({ color: 0xf8fafc });
 
-    // Main Central East-West Boulevard (x: -240 to +240, z = 0)
-    const roadHGeo = new THREE.PlaneGeometry(500, 14);
+    // Main Central East-West Boulevard (x: -650 to +650, z = 0)
+    const roadHGeo = new THREE.PlaneGeometry(1300, 16);
     const roadH = new THREE.Mesh(roadHGeo, roadMat);
     roadH.rotation.x = -Math.PI / 2;
     roadH.position.set(0, 0.02, 0);
@@ -3109,15 +3248,15 @@ export default function ThreeGameWorld({
     scene.add(roadH);
 
     // Central East-West Center Double Yellow Line
-    const centerLineH = new THREE.Mesh(new THREE.PlaneGeometry(500, 0.25), lineYellowMat);
+    const centerLineH = new THREE.Mesh(new THREE.PlaneGeometry(1300, 0.25), lineYellowMat);
     centerLineH.rotation.x = -Math.PI / 2;
     centerLineH.position.set(0, 0.03, 0);
     scene.add(centerLineH);
 
     // East-West Dashed White Lane Markings
-    for (let lx = -230; lx <= 230; lx += 8) {
-      if (Math.abs(lx) < 9 || Math.abs(lx - 90) < 9 || Math.abs(lx + 90) < 9) continue;
-      [-3.5, 3.5].forEach((lz) => {
+    for (let lx = -620; lx <= 620; lx += 8) {
+      if (Math.abs(lx) < 9 || Math.abs(lx - 90) < 9 || Math.abs(lx + 90) < 9 || Math.abs(lx - 280) < 9 || Math.abs(lx + 280) < 9 || Math.abs(lx - 480) < 9 || Math.abs(lx + 480) < 9) continue;
+      [-4.0, 4.0].forEach((lz) => {
         const dash = new THREE.Mesh(new THREE.PlaneGeometry(4, 0.2), lineWhiteMat);
         dash.rotation.x = -Math.PI / 2;
         dash.position.set(lx, 0.03, lz);
@@ -3125,8 +3264,8 @@ export default function ThreeGameWorld({
       });
     }
 
-    // Main Central North-South Promenade (x = 0, z: -240 to +240)
-    const roadVGeo = new THREE.PlaneGeometry(14, 500);
+    // Main Central North-South Promenade (x = 0, z: -650 to +650)
+    const roadVGeo = new THREE.PlaneGeometry(16, 1300);
     const roadV = new THREE.Mesh(roadVGeo, roadMat);
     roadV.rotation.x = -Math.PI / 2;
     roadV.position.set(0, 0.02, 0);
@@ -3134,34 +3273,34 @@ export default function ThreeGameWorld({
     scene.add(roadV);
 
     // Central North-South Center Yellow Line
-    const centerLineV = new THREE.Mesh(new THREE.PlaneGeometry(0.25, 500), lineYellowMat);
+    const centerLineV = new THREE.Mesh(new THREE.PlaneGeometry(0.25, 1300), lineYellowMat);
     centerLineV.rotation.x = -Math.PI / 2;
     centerLineV.position.set(0, 0.03, 0);
     scene.add(centerLineV);
 
-    // Secondary Cross Avenues: North Ring Road (z = -90) and South Ring Road (z = 90)
-    [-90, 90].forEach((rz) => {
-      const ringH = new THREE.Mesh(new THREE.PlaneGeometry(480, 11), roadMat);
+    // Secondary Cross Avenues & Outer Metropolis Express Rings (z = ±90, ±280, ±480)
+    [-480, -280, -90, 90, 280, 480].forEach((rz) => {
+      const ringH = new THREE.Mesh(new THREE.PlaneGeometry(1280, 12), roadMat);
       ringH.rotation.x = -Math.PI / 2;
       ringH.position.set(0, 0.02, rz);
       ringH.receiveShadow = true;
       scene.add(ringH);
 
-      const rHCenter = new THREE.Mesh(new THREE.PlaneGeometry(480, 0.22), lineYellowMat);
+      const rHCenter = new THREE.Mesh(new THREE.PlaneGeometry(1280, 0.22), lineYellowMat);
       rHCenter.rotation.x = -Math.PI / 2;
       rHCenter.position.set(0, 0.03, rz);
       scene.add(rHCenter);
     });
 
-    // Secondary Cross Avenues: East Ring Road (x = 90) and West Ring Road (x = -90)
-    [-90, 90].forEach((rx) => {
-      const ringV = new THREE.Mesh(new THREE.PlaneGeometry(11, 480), roadMat);
+    // Secondary Cross Avenues & Outer Metropolis Express Rings (x = ±90, ±280, ±480)
+    [-480, -280, -90, 90, 280, 480].forEach((rx) => {
+      const ringV = new THREE.Mesh(new THREE.PlaneGeometry(12, 1280), roadMat);
       ringV.rotation.x = -Math.PI / 2;
       ringV.position.set(rx, 0.02, 0);
       ringV.receiveShadow = true;
       scene.add(ringV);
 
-      const rVCenter = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 480), lineYellowMat);
+      const rVCenter = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 1280), lineYellowMat);
       rVCenter.rotation.x = -Math.PI / 2;
       rVCenter.position.set(rx, 0.03, 0);
       scene.add(rVCenter);
@@ -3192,8 +3331,8 @@ export default function ThreeGameWorld({
     const plazaGeo = new THREE.PlaneGeometry(36, 60);
     const plazaMat = new THREE.MeshStandardMaterial({
       map: plazaTexture,
-      roughness: 0.3,
-      metalness: 0.1,
+      roughness: 0.92,
+      metalness: 0.0,
     });
     const grandPlaza = new THREE.Mesh(plazaGeo, plazaMat);
     grandPlaza.rotation.x = -Math.PI / 2;
@@ -4962,17 +5101,335 @@ export default function ThreeGameWorld({
     makkahGroup.position.set(0, 0, -85);
     scene.add(makkahGroup);
 
-    // S. METROPOLIS PERIMETER BOUNDARY PYLONS (Marking city edge at x: ±230, z: ±230)
+    // AH. GRANADA & ALHAMBRA PALACE GARDENS (Location: [-360, 0, -280])
+    const granadaGroup = new THREE.Group();
+    // Red clay fortress tower (Torre de la Vela)
+    const granadaTower = new THREE.Mesh(new THREE.BoxGeometry(26, 18, 22), new THREE.MeshStandardMaterial({ color: 0x991b1b, roughness: 0.8 }));
+    granadaTower.position.set(0, 9, 0);
+    granadaGroup.add(granadaTower);
+    // Nasrid Moorish Gateway Arch
+    const granadaArch = new THREE.Mesh(new THREE.BoxGeometry(7, 8, 1.2), new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.6 }));
+    granadaArch.position.set(0, 4, 11.2);
+    granadaGroup.add(granadaArch);
+    // Generalife Water Canal (Reflection pool)
+    const granadaWater = new THREE.Mesh(new THREE.PlaneGeometry(8, 38), new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.1, metalness: 0.9 }));
+    granadaWater.rotation.x = -Math.PI / 2;
+    granadaWater.position.set(0, 0.05, 26);
+    granadaGroup.add(granadaWater);
+    // Cypress Trees flanking courtyard
+    [-6, 6].forEach((cx) => {
+      [15, 25, 35].forEach((cz) => {
+        const cTree = new THREE.Mesh(new THREE.ConeGeometry(1.2, 7.5, 6), new THREE.MeshStandardMaterial({ color: 0x14532d, roughness: 0.7 }));
+        cTree.position.set(cx, 3.75, cz);
+        granadaGroup.add(cTree);
+      });
+    });
+    const granadaLantern = new THREE.PointLight(0xf59e0b, 2.0, 36);
+    granadaLantern.position.set(0, 14, 10);
+    granadaGroup.add(granadaLantern);
+    granadaGroup.position.set(-360, 0, -280);
+    scene.add(granadaGroup);
+
+    // AI. ISFAHAN NAQSH-E JAHAN & ROYAL TURQUOISE DOME (Location: [360, 0, -260])
+    const isfahanGroup = new THREE.Group();
+    // Double-Tiered Persian Arcade Facade
+    const isfahanFacade = new THREE.Mesh(new THREE.BoxGeometry(32, 16, 12), new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.4 }));
+    isfahanFacade.position.set(0, 8, 0);
+    isfahanGroup.add(isfahanFacade);
+    // Monumental Floral Turquoise Dome
+    const isfahanDome = new THREE.Mesh(new THREE.SphereGeometry(7, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.25, metalness: 0.4 }));
+    isfahanDome.position.set(0, 16, 0);
+    isfahanGroup.add(isfahanDome);
+    // Golden Finial
+    const isfahanFinial = new THREE.Mesh(new THREE.ConeGeometry(0.8, 3.5, 8), new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.9 }));
+    isfahanFinial.position.set(0, 24.5, 0);
+    isfahanGroup.add(isfahanFinial);
+    // Persian Minarets
+    [-14, 14].forEach((ix) => {
+      const imin = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.5, 24, 8), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.4 }));
+      imin.position.set(ix, 12, 4);
+      isfahanGroup.add(imin);
+    });
+    // Turquoise Reflection Pool
+    const isfahanPool = new THREE.Mesh(new THREE.PlaneGeometry(16, 36), new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.1, metalness: 0.9 }));
+    isfahanPool.rotation.x = -Math.PI / 2;
+    isfahanPool.position.set(0, 0.05, 24);
+    isfahanGroup.add(isfahanPool);
+    const isfahanLight = new THREE.PointLight(0x38bdf8, 2.2, 38);
+    isfahanLight.position.set(0, 18, 6);
+    isfahanGroup.add(isfahanLight);
+    isfahanGroup.position.set(360, 0, -260);
+    scene.add(isfahanGroup);
+
+    // AJ. DAMASCUS ANCIENT UMAYYAD CITADEL & BARADA HAVEN (Location: [-280, 0, 320])
+    const damascusGroup = new THREE.Group();
+    // Ancient Limestone Courtyard Colonnade
+    const damascusHall = new THREE.Mesh(new THREE.BoxGeometry(28, 14, 16), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.6 }));
+    damascusHall.position.set(0, 7, 0);
+    damascusGroup.add(damascusHall);
+    // Golden Mosaic Gable Portal
+    const damascusGable = new THREE.Mesh(new THREE.ConeGeometry(10, 6, 4), new THREE.MeshStandardMaterial({ color: 0xfbbf24, roughness: 0.3, metalness: 0.8 }));
+    damascusGable.rotation.y = Math.PI / 4;
+    damascusGable.position.set(0, 17, 0);
+    damascusGroup.add(damascusGable);
+    // Twin Historic Minarets (Bride Minaret & Jesus Minaret)
+    [-12, 12].forEach((dx) => {
+      const dMin = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.6, 26, 8), new THREE.MeshStandardMaterial({ color: 0xfef08a, roughness: 0.3 }));
+      dMin.position.set(dx, 13, 6);
+      damascusGroup.add(dMin);
+    });
+    // Barada River Promenade Canal
+    const baradaWater = new THREE.Mesh(new THREE.PlaneGeometry(10, 42), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.85 }));
+    baradaWater.rotation.x = -Math.PI / 2;
+    baradaWater.position.set(0, 0.05, 24);
+    damascusGroup.add(baradaWater);
+    const damascusLight = new THREE.PointLight(0xfbbf24, 2.0, 36);
+    damascusLight.position.set(0, 14, 0);
+    damascusGroup.add(damascusLight);
+    damascusGroup.position.set(-280, 0, 320);
+    scene.add(damascusGroup);
+
+    // AK. TIMBUKTU SANKORE UNIVERSITY & DESERT CITADEL (Location: [-340, 0, 420])
+    const timbuktuGroup = new THREE.Group();
+    // Stepped Mud-Pyramid Minaret with Toron Cedar Beams
+    const timbuktuMinaret = new THREE.Mesh(new THREE.ConeGeometry(6, 22, 4), new THREE.MeshStandardMaterial({ color: 0xa16207, roughness: 0.95 }));
+    timbuktuMinaret.rotation.y = Math.PI / 4;
+    timbuktuMinaret.position.set(0, 11, 0);
+    timbuktuGroup.add(timbuktuMinaret);
+    // Toron wooden beams protruding from mud walls
+    for (let by = 4; by <= 18; by += 2.8) {
+      const beamX = new THREE.Mesh(new THREE.BoxGeometry(7 - by * 0.22, 0.25, 0.25), new THREE.MeshStandardMaterial({ color: 0x451a03 }));
+      beamX.position.set(0, by, 0);
+      timbuktuGroup.add(beamX);
+      const beamZ = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.25, 7 - by * 0.22), new THREE.MeshStandardMaterial({ color: 0x451a03 }));
+      beamZ.position.set(0, by, 0);
+      timbuktuGroup.add(beamZ);
+    }
+    // Sudano-Sahelian Adobe Academy Walls
+    const timbuktuBase = new THREE.Mesh(new THREE.BoxGeometry(26, 7, 20), new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.9 }));
+    timbuktuBase.position.set(0, 3.5, 12);
+    timbuktuGroup.add(timbuktuBase);
+    // Saharan Sand Dunes base
+    const dune = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.95 }));
+    dune.rotation.x = -Math.PI / 2;
+    dune.position.set(0, 0.04, 6);
+    timbuktuGroup.add(dune);
+    const timbuktuLantern = new THREE.PointLight(0xf59e0b, 2.0, 35);
+    timbuktuLantern.position.set(0, 23, 0);
+    timbuktuGroup.add(timbuktuLantern);
+    timbuktuGroup.position.set(-340, 0, 420);
+    scene.add(timbuktuGroup);
+
+    // AL. CASABLANCA OCEAN MOSQUE & ATLANTIC PIER (Location: [-460, 0, 120])
+    const casablancaGroup = new THREE.Group();
+    // Massive Atlantic Minaret Tower (Soaring 36m height)
+    const casaMinaret = new THREE.Mesh(new THREE.BoxGeometry(7, 36, 7), new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.4 }));
+    casaMinaret.position.set(0, 18, 0);
+    casablancaGroup.add(casaMinaret);
+    // Turquoise Ceramic Tile Top & Lantern
+    const casaTop = new THREE.Mesh(new THREE.BoxGeometry(8, 4, 8), new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.3 }));
+    casaTop.position.set(0, 38, 0);
+    casablancaGroup.add(casaTop);
+    // Laser Makkah Projection Beacon
+    const casaBeacon = new THREE.PointLight(0x10b981, 3.5, 75);
+    casaBeacon.position.set(0, 41, 0);
+    casablancaGroup.add(casaBeacon);
+    // Grand Prayer Hall Built Over Water
+    const casaHall = new THREE.Mesh(new THREE.BoxGeometry(32, 14, 28), new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 }));
+    casaHall.position.set(0, 7, 22);
+    casablancaGroup.add(casaHall);
+    // Atlantic Ocean Waves Water Platform
+    const casaOcean = new THREE.Mesh(new THREE.PlaneGeometry(65, 65), new THREE.MeshStandardMaterial({ color: 0x0369a1, roughness: 0.08, metalness: 0.92 }));
+    casaOcean.rotation.x = -Math.PI / 2;
+    casaOcean.position.set(0, 0.04, 18);
+    casablancaGroup.add(casaOcean);
+    casablancaGroup.position.set(-460, 0, 120);
+    scene.add(casablancaGroup);
+
+    // AM. LAHORE BADSHAHI IMPERIAL CITADEL & SHALAMAR (Location: [380, 0, 320])
+    const lahoreGroup = new THREE.Group();
+    // Mughal Red Sandstone Gateway
+    const lahoreGate = new THREE.Mesh(new THREE.BoxGeometry(32, 16, 18), new THREE.MeshStandardMaterial({ color: 0x991b1b, roughness: 0.7 }));
+    lahoreGate.position.set(0, 8, 0);
+    lahoreGroup.add(lahoreGate);
+    // Triple White Marble Onion Domes
+    [-8, 0, 8].forEach((dx, i) => {
+      const radius = i === 1 ? 5.2 : 4.0;
+      const lDome = new THREE.Mesh(new THREE.SphereGeometry(radius, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.2 }));
+      lDome.position.set(dx, 16, 0);
+      lahoreGroup.add(lDome);
+    });
+    // Four Soaring Red Sandstone Minarets
+    [[-14, -7], [14, -7], [-14, 7], [14, 7]].forEach(([mx, mz]) => {
+      const lMin = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 2.0, 28, 8), new THREE.MeshStandardMaterial({ color: 0x991b1b, roughness: 0.7 }));
+      lMin.position.set(mx, 14, mz);
+      lahoreGroup.add(lMin);
+      const lCrown = new THREE.Mesh(new THREE.ConeGeometry(1.8, 3.5, 8), new THREE.MeshStandardMaterial({ color: 0xf8fafc }));
+      lCrown.position.set(mx, 29.5, mz);
+      lahoreGroup.add(lCrown);
+    });
+    // Shalamar Tiered Fountain Terraces
+    const lahoreWater = new THREE.Mesh(new THREE.PlaneGeometry(16, 40), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.85 }));
+    lahoreWater.rotation.x = -Math.PI / 2;
+    lahoreWater.position.set(0, 0.05, 26);
+    lahoreGroup.add(lahoreWater);
+    const lahoreLantern = new THREE.PointLight(0xf59e0b, 2.2, 40);
+    lahoreLantern.position.set(0, 16, 0);
+    lahoreGroup.add(lahoreLantern);
+    lahoreGroup.position.set(380, 0, 320);
+    scene.add(lahoreGroup);
+
+    // AN. SHIRAZ GARDEN OF POETS & NASIR AL-MULK (Location: [290, 0, -420])
+    const shirazGroup = new THREE.Group();
+    // Pink Mosque Rose-tinted Stained Glass Pavilion
+    const shirazPavilion = new THREE.Mesh(new THREE.BoxGeometry(26, 11, 16), new THREE.MeshStandardMaterial({ color: 0xbe123c, roughness: 0.5 }));
+    shirazPavilion.position.set(0, 5.5, 0);
+    shirazGroup.add(shirazPavilion);
+    // Stained Glass Kaleidoscope Portals
+    for (let gx = -9; gx <= 9; gx += 4.5) {
+      const glass = new THREE.Mesh(new THREE.BoxGeometry(3.2, 6, 0.4), new THREE.MeshStandardMaterial({ color: 0xf43f5e, roughness: 0.1, metalness: 0.7 }));
+      glass.position.set(gx, 5, 8.2);
+      shirazGroup.add(glass);
+    }
+    // Persian Eram Rose Garden Beds & Turquoise Pool
+    const shirazPool = new THREE.Mesh(new THREE.CylinderGeometry(8, 8, 0.4, 16), new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.1, metalness: 0.9 }));
+    shirazPool.position.set(0, 0.2, 22);
+    shirazGroup.add(shirazPool);
+    // Rose Planters
+    [-8, 8].forEach((rx) => {
+      const roses = new THREE.Mesh(new THREE.DodecahedronGeometry(2.0), new THREE.MeshStandardMaterial({ color: 0xe11d48 }));
+      roses.position.set(rx, 1.2, 22);
+      shirazGroup.add(roses);
+    });
+    const shirazGlow = new THREE.PointLight(0xfb7185, 2.0, 32);
+    shirazGlow.position.set(0, 9, 8);
+    shirazGroup.add(shirazGlow);
+    shirazGroup.position.set(290, 0, -420);
+    scene.add(shirazGroup);
+
+    // AO. TRIPOLI MEDITERRANEAN CITADEL & RED CASTLE (Location: [80, 0, -440])
+    const tripoliGroup = new THREE.Group();
+    // Assaraya Al-Hamra Massive Red Castle Fort
+    const tripoliFort = new THREE.Mesh(new THREE.BoxGeometry(30, 14, 28), new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.85 }));
+    tripoliFort.position.set(0, 7, 0);
+    tripoliGroup.add(tripoliFort);
+    // Corner Watchtowers
+    [[-14, -13], [14, -13], [-14, 13], [14, 13]].forEach(([tx, tz]) => {
+      const tTower = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.4, 18, 10), new THREE.MeshStandardMaterial({ color: 0x92400e }));
+      tTower.position.set(tx, 9, tz);
+      tripoliGroup.add(tTower);
+    });
+    // Mediterranean Seaside Coastal Ingress
+    const tripoliSea = new THREE.Mesh(new THREE.PlaneGeometry(55, 55), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.9 }));
+    tripoliSea.rotation.x = -Math.PI / 2;
+    tripoliSea.position.set(0, 0.04, -24);
+    tripoliGroup.add(tripoliSea);
+    const tripoliLight = new THREE.PointLight(0x38bdf8, 2.0, 36);
+    tripoliLight.position.set(0, 18, 0);
+    tripoliGroup.add(tripoliLight);
+    tripoliGroup.position.set(80, 0, -440);
+    scene.add(tripoliGroup);
+
+    // AP. ALEPPO CITADEL & HISTORIC COVERED SOUQ (Location: [-160, 0, -420])
+    const aleppoGroup = new THREE.Group();
+    // Fortress Mound
+    const aleppoMound = new THREE.Mesh(new THREE.CylinderGeometry(20, 28, 9, 16), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.9 }));
+    aleppoMound.position.set(0, 4.5, 0);
+    aleppoGroup.add(aleppoMound);
+    // Monumental Citadel Gatehouse atop mound
+    const aleppoGate = new THREE.Mesh(new THREE.BoxGeometry(18, 12, 12), new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.7 }));
+    aleppoGate.position.set(0, 15, 0);
+    aleppoGroup.add(aleppoGate);
+    // Arched Bridge Over Moat
+    const aleppoBridge = new THREE.Mesh(new THREE.BoxGeometry(6, 4, 24), new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.7 }));
+    aleppoBridge.position.set(0, 6, 16);
+    aleppoGroup.add(aleppoBridge);
+    const aleppoTorch = new THREE.PointLight(0xf59e0b, 2.2, 34);
+    aleppoTorch.position.set(0, 22, 0);
+    aleppoGroup.add(aleppoTorch);
+    aleppoGroup.position.set(-160, 0, -420);
+    scene.add(aleppoGroup);
+
+    // AQ. DOHA PEARL BAY & MODERNIST CITADEL (Location: [440, 0, 120])
+    const dohaGroup = new THREE.Group();
+    // Stacked Geometric Modernist Limestone Cubes
+    const dohaBase = new THREE.Mesh(new THREE.BoxGeometry(22, 8, 22), new THREE.MeshStandardMaterial({ color: 0xfef08a, roughness: 0.3 }));
+    dohaBase.position.set(0, 4, 0);
+    dohaGroup.add(dohaBase);
+    const dohaTier2 = new THREE.Mesh(new THREE.BoxGeometry(16, 7, 16), new THREE.MeshStandardMaterial({ color: 0xfde047, roughness: 0.35 }));
+    dohaTier2.position.set(0, 11.5, 0);
+    dohaGroup.add(dohaTier2);
+    const dohaTier3 = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 10), new THREE.MeshStandardMaterial({ color: 0xfef08a, roughness: 0.25 }));
+    dohaTier3.rotation.y = Math.PI / 4;
+    dohaTier3.position.set(0, 18, 0);
+    dohaGroup.add(dohaTier3);
+    // Arabian Gulf Dhow Harbor
+    const dohaBay = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.1, metalness: 0.9 }));
+    dohaBay.rotation.x = -Math.PI / 2;
+    dohaBay.position.set(0, 0.04, 20);
+    dohaGroup.add(dohaBay);
+    const dohaGlow = new THREE.PointLight(0x06b6d4, 2.5, 42);
+    dohaGlow.position.set(0, 22, 0);
+    dohaGroup.add(dohaGlow);
+    dohaGroup.position.set(440, 0, 120);
+    scene.add(dohaGroup);
+
+    // AR. TUNIS MEDINA OF EZ-ZITOUNA & CARTHAGE COAST (Location: [220, 0, -360])
+    const tunisGroup = new THREE.Group();
+    // Ez-Zitouna Andalusian-Tunisian Tiled Minaret
+    const tunisMinaret = new THREE.Mesh(new THREE.BoxGeometry(6, 26, 6), new THREE.MeshStandardMaterial({ color: 0x047857, roughness: 0.4 }));
+    tunisMinaret.position.set(0, 13, 0);
+    tunisGroup.add(tunisMinaret);
+    const tunisLantern = new THREE.Mesh(new THREE.BoxGeometry(7, 3, 7), new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8 }));
+    tunisLantern.position.set(0, 27.5, 0);
+    tunisGroup.add(tunisLantern);
+    // Whitewashed Medina Quarter with Studded Blue Arched Doors
+    const tunisWall = new THREE.Mesh(new THREE.BoxGeometry(24, 8, 14), new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.5 }));
+    tunisWall.position.set(0, 4, 12);
+    tunisGroup.add(tunisWall);
+    const tunisBlueDoor = new THREE.Mesh(new THREE.BoxGeometry(4, 6, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.3 }));
+    tunisBlueDoor.position.set(0, 3, 19.2);
+    tunisGroup.add(tunisBlueDoor);
+    const tunisLight = new THREE.PointLight(0x10b981, 2.0, 34);
+    tunisLight.position.set(0, 28, 0);
+    tunisGroup.add(tunisLight);
+    tunisGroup.position.set(220, 0, -360);
+    scene.add(tunisGroup);
+
+    // AS. MUSCAT MUTRAH HARBOR & CORNICHE ESPLANADE (Location: [460, 0, -100])
+    const mutrahGroup = new THREE.Group();
+    // Dramatic Gulf Watchtower Fortress
+    const mutrahFort = new THREE.Mesh(new THREE.CylinderGeometry(5, 7, 18, 12), new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.5 }));
+    mutrahFort.position.set(0, 9, 0);
+    mutrahGroup.add(mutrahFort);
+    // Giant Incense Burner / Riyam Landmark
+    const riyamBurner = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 2.2, 5, 8), new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8 }));
+    riyamBurner.position.set(10, 2.5, 6);
+    mutrahGroup.add(riyamBurner);
+    // Gulf of Oman Harbor Waters
+    const mutrahBay = new THREE.Mesh(new THREE.PlaneGeometry(55, 55), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.9 }));
+    mutrahBay.rotation.x = -Math.PI / 2;
+    mutrahBay.position.set(-18, 0.04, 0);
+    mutrahGroup.add(mutrahBay);
+    const mutrahLight = new THREE.PointLight(0xf59e0b, 2.2, 38);
+    mutrahLight.position.set(0, 19, 0);
+    mutrahGroup.add(mutrahLight);
+    mutrahGroup.position.set(460, 0, -100);
+    scene.add(mutrahGroup);
+
+    // S. METROPOLIS PERIMETER BOUNDARY PYLONS (Marking colossal city perimeter at x: ±620, z: ±620)
     [
-      [-230, -230], [230, -230], [-230, 230], [230, 230],
-      [0, -230], [0, 230], [-230, 0], [230, 0]
+      [-620, -620], [620, -620], [-620, 620], [620, 620],
+      [0, -620], [0, 620], [-620, 0], [620, 0],
+      [-300, -620], [300, -620], [-300, 620], [300, 620],
+      [-620, -300], [-620, 300], [620, -300], [620, 300]
     ].forEach(([bx, bz]) => {
-      const pylon = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.8, 18, 8), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 }));
-      pylon.position.set(bx, 9, bz);
+      const pylon = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2.4, 28, 8), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 }));
+      pylon.position.set(bx, 14, bz);
       scene.add(pylon);
 
-      const pLight = new THREE.PointLight(0x10b981, 1.5, 25);
-      pLight.position.set(bx, 18.5, bz);
+      const pLight = new THREE.PointLight(0x10b981, 2.0, 45);
+      pLight.position.set(bx, 28.5, bz);
       scene.add(pLight);
     });
 
@@ -5094,12 +5551,16 @@ export default function ThreeGameWorld({
 
       // Quick key shortcuts
       if (e.code === 'Escape') {
-        if (isMissionsModalOpen) setIsMissionsModalOpen(false);
+        if (isProfileModalOpen) setIsProfileModalOpen(false);
+        else if (isMissionsModalOpen) setIsMissionsModalOpen(false);
         else if (isSouqShopOpen) setIsSouqShopOpen(false);
         else if (isUniversityQuizOpen) setIsUniversityQuizOpen(false);
         else if (isMenuOpen) setIsMenuOpen(false);
         else if (isExpressionPickerOpen) setIsExpressionPickerOpen(false);
         else if (onExitToLanding) onExitToLanding();
+      }
+      if (e.code === 'KeyG' || e.code === 'KeyU') {
+        setIsProfileModalOpen((prev) => !prev);
       }
       if (e.code === 'KeyE') {
         if (activeEnterTargetRef.current && (activeEnterTargetRef.current.actionKey === 'E' || currentInsideLocationRef.current)) {
@@ -5154,6 +5615,15 @@ export default function ThreeGameWorld({
       if (e.code === 'KeyM') {
         setIsMinimapExpanded((prev) => !prev);
       }
+      // Instant camera zoom keyboard shortcuts
+      if (e.code === 'Equal' || e.code === 'NumpadAdd' || (e.code === 'KeyI' && !isChatCardOpen)) {
+        e.preventDefault();
+        handleSetCameraZoom(cameraDistanceRef.current * 0.75);
+      }
+      if (e.code === 'Minus' || e.code === 'NumpadSubtract' || (e.code === 'KeyO' && !isChatCardOpen)) {
+        e.preventDefault();
+        handleSetCameraZoom(cameraDistanceRef.current * 1.33);
+      }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
@@ -5199,12 +5669,26 @@ export default function ThreeGameWorld({
   };
 
   const handleWheel = (e: React.WheelEvent) => {
-    // Dynamic smooth scaling: fine-tuned near eyes (0.45m) to broad scaling at high altitude (260m)
+    // Immediate, snappy camera zoom on mouse wheel / trackpad
+    e.stopPropagation();
     const current = cameraDistanceRef.current;
-    const rate = current > 40 ? e.deltaY * 0.12 : (current < 2.5 ? e.deltaY * 0.008 : e.deltaY * 0.035);
-    const newDist = Math.max(0.45, Math.min(260.0, current + rate));
+    setCameraViewMode('third_person'); // Reset close-up lock so zoom is immediate
+    
+    const rawDelta = e.deltaY;
+    let factor = 1.0;
+    if (Math.abs(rawDelta) >= 40) {
+      // Physical notched mouse wheel: responsive proportional step
+      factor = rawDelta > 0 ? 1.25 : 0.80;
+    } else {
+      // Precision trackpad gesture
+      const step = Math.min(0.22, Math.abs(rawDelta) * 0.012);
+      factor = rawDelta > 0 ? (1 + step) : (1 - step);
+    }
+    
+    const newDist = Math.max(0.45, Math.min(550.0, current * factor));
     cameraDistanceRef.current = newDist;
     setCameraZoomDistance(newDist);
+    isInstantZoomRef.current = true;
   };
 
   // Mobile & Tablet Touch Controls: Virtual Joystick (Left) and Camera Pan/Pinch (Right)
@@ -5245,7 +5729,7 @@ export default function ThreeGameWorld({
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    // Handle pinch zoom
+    // Handle instant pinch zoom on mobile & tablet
     if (e.touches.length >= 2 && pinchDistanceRef.current !== null) {
       const nonJoystickTouches = Array.from(e.touches).filter((t) => t.identifier !== joystickTouchIdRef.current);
       if (nonJoystickTouches.length >= 2) {
@@ -5254,10 +5738,12 @@ export default function ThreeGameWorld({
         const currentDist = Math.hypot(dx, dy);
         const delta = currentDist - pinchDistanceRef.current;
         const current = cameraDistanceRef.current;
-        const rate = current > 40 ? 0.25 : (current < 2.5 ? 0.02 : 0.08);
-        const newDist = Math.max(0.45, Math.min(260.0, current - delta * rate));
+        setCameraViewMode('third_person');
+        const pinchFactor = 1 - (delta / 200);
+        const newDist = Math.max(0.45, Math.min(550.0, current * pinchFactor));
         cameraDistanceRef.current = newDist;
         setCameraZoomDistance(newDist);
+        isInstantZoomRef.current = true;
         pinchDistanceRef.current = currentDist;
       }
     }
@@ -5350,6 +5836,19 @@ export default function ThreeGameWorld({
       { id: 'obs_kano', name: 'Kano Ancient Walls & Indigo Dye Pits', type: 'building', penalty: 5, minX: -8.0, maxX: 12.0, minZ: 14.0, maxZ: 30.0 },
       { id: 'obs_bukhara', name: 'Bukhara Kalyan Minaret Beacon', type: 'building', penalty: 5, minX: 128.0, maxX: 142.0, minZ: 28.0, maxZ: 42.0 },
       { id: 'obs_makkah', name: 'Makkah Al-Mukarramah Sanctuary', type: 'building', penalty: 5, minX: -18.0, maxX: 18.0, minZ: -99.0, maxZ: -71.0 },
+      // Newly Expanded Colossal Metropolises & Frontier Citadels
+      { id: 'obs_granada', name: 'Granada Alhambra Palace & Nasrid Fortress', type: 'building', penalty: 5, minX: -375.0, maxX: -345.0, minZ: -295.0, maxZ: -265.0 },
+      { id: 'obs_isfahan', name: 'Isfahan Naqsh-e Jahan & Royal Turquoise Dome', type: 'building', penalty: 5, minX: 342.0, maxX: 378.0, minZ: -275.0, maxZ: -245.0 },
+      { id: 'obs_damascus', name: 'Damascus Ancient Umayyad Citadel', type: 'building', penalty: 5, minX: -296.0, maxX: -264.0, minZ: 305.0, maxZ: 335.0 },
+      { id: 'obs_timbuktu', name: 'Timbuktu Sankore University Adobe Minaret', type: 'building', penalty: 5, minX: -355.0, maxX: -325.0, minZ: 405.0, maxZ: 435.0 },
+      { id: 'obs_casablanca', name: 'Casablanca Atlantic Ocean Mosque', type: 'building', penalty: 5, minX: -478.0, maxX: -442.0, minZ: 102.0, maxZ: 138.0 },
+      { id: 'obs_lahore', name: 'Lahore Badshahi Imperial Citadel', type: 'building', penalty: 5, minX: 362.0, maxX: 398.0, minZ: 304.0, maxZ: 336.0 },
+      { id: 'obs_shiraz', name: 'Shiraz Nasir al-Mulk & Rose Pavilion', type: 'building', penalty: 5, minX: 275.0, maxX: 305.0, minZ: -435.0, maxZ: -405.0 },
+      { id: 'obs_tripoli', name: 'Tripoli Red Castle & Assaraya Fort', type: 'building', penalty: 5, minX: 62.0, maxX: 98.0, minZ: -456.0, maxZ: -424.0 },
+      { id: 'obs_aleppo', name: 'Aleppo Citadel Fortress Mound', type: 'building', penalty: 5, minX: -182.0, maxX: -138.0, minZ: -438.0, maxZ: -402.0 },
+      { id: 'obs_doha', name: 'Doha Pearl Bay Modernist Citadel', type: 'building', penalty: 5, minX: 426.0, maxX: 454.0, minZ: 106.0, maxZ: 134.0 },
+      { id: 'obs_tunis', name: 'Tunis Ez-Zitouna & Ancient Medina', type: 'building', penalty: 5, minX: 206.0, maxX: 234.0, minZ: -374.0, maxZ: -346.0 },
+      { id: 'obs_mutrah', name: 'Muscat Mutrah Harbor & Corniche', type: 'building', penalty: 5, minX: 445.0, maxX: 475.0, minZ: -115.0, maxZ: -85.0 },
     ];
 
     const animate = () => {
@@ -5478,9 +5977,9 @@ export default function ThreeGameWorld({
           const carForward = new THREE.Vector3(Math.sin(drivenVeh.mesh.rotation.y), 0, Math.cos(drivenVeh.mesh.rotation.y));
           drivenVeh.mesh.position.addScaledVector(carForward, drivenVeh.currentSpeed * delta);
 
-          // Clamping inside city perimeter [-235, 235]
-          drivenVeh.mesh.position.x = Math.max(-235, Math.min(235, drivenVeh.mesh.position.x));
-          drivenVeh.mesh.position.z = Math.max(-235, Math.min(235, drivenVeh.mesh.position.z));
+          // Clamping inside city perimeter [-620, 620]
+          drivenVeh.mesh.position.x = Math.max(-620, Math.min(620, drivenVeh.mesh.position.x));
+          drivenVeh.mesh.position.z = Math.max(-620, Math.min(620, drivenVeh.mesh.position.z));
 
           // Spin wheels
           if (drivenVeh.wheels) {
@@ -5545,12 +6044,12 @@ export default function ThreeGameWorld({
 
         // Smooth independent X & Z resolution: prevents sticking and enables wall gliding
         let newX = playerPositionRef.current.x + deltaX;
-        if (isPointBlocked(newX, playerPositionRef.current.z) || Math.abs(newX) > 235) {
+        if (isPointBlocked(newX, playerPositionRef.current.z) || Math.abs(newX) > 620) {
           newX = playerPositionRef.current.x; // slide along Z
         }
 
         let newZ = playerPositionRef.current.z + deltaZ;
-        if (isPointBlocked(newX, newZ) || Math.abs(newZ) > 235) {
+        if (isPointBlocked(newX, newZ) || Math.abs(newZ) > 620) {
           newZ = playerPositionRef.current.z; // slide along X
         }
 
@@ -5808,26 +6307,32 @@ export default function ThreeGameWorld({
         let camY = Math.max(0.5, playerPositionRef.current.y + camHeight + (camDistance < 30 ? camDistance * Math.sin(vert) : 0));
         let camZ = playerPositionRef.current.z + camDistance * Math.cos(horiz) * Math.cos(vert);
 
-        // Camera Obstruction & Collision Handling against City Buildings:
-        // Only check obstacle collision if camera is at building height (camY < 14) and NOT in close-up or miniature view!
+        // Camera Obstruction & Elevation Handling:
+        // When camera is near buildings, elevate camera smoothly above roof level
+        // so it NEVER gets stuck behind walls or fights the user's zoom!
         if (camDistance >= 3.0 && camDistance <= 35.0 && camY < 14.0) {
           for (let o = 0; o < SOLID_OBSTACLES.length; o++) {
             const obs = SOLID_OBSTACLES[o];
             if (obs.minX !== undefined && obs.maxX !== undefined && obs.minZ !== undefined && obs.maxZ !== undefined) {
               if (camX >= obs.minX - 1.2 && camX <= obs.maxX + 1.2 && camZ >= obs.minZ - 1.2 && camZ <= obs.maxZ + 1.2) {
-                camDistance = Math.max(3.2, camDistance * 0.7);
-                camX = playerPositionRef.current.x + camDistance * Math.sin(horiz) * Math.cos(vert);
-                camY = Math.max(2.4, playerPositionRef.current.y + camDistance * 0.42 + camDistance * Math.sin(vert));
-                camZ = playerPositionRef.current.z + camDistance * Math.cos(horiz) * Math.cos(vert);
+                camY = Math.max(camY, 14.5);
                 break;
               }
             }
           }
         }
 
-        // Apply smooth camera position spring interpolation (GTA camera weight)
+        // Apply immediate camera responsiveness on zoom or high-speed movement
         const targetCamPos = new THREE.Vector3(camX, camY, camZ);
-        cameraRef.current.position.lerp(targetCamPos, 0.16);
+        const distDiff = Math.abs(lastCameraDistanceRef.current - camDistance);
+        if (isInstantZoomRef.current || distDiff > 0.12) {
+          cameraRef.current.position.copy(targetCamPos);
+          isInstantZoomRef.current = false;
+        } else {
+          // Snappy, responsive 0.52 lerp follow
+          cameraRef.current.position.lerp(targetCamPos, 0.52);
+        }
+        lastCameraDistanceRef.current = camDistance;
 
         // Dynamic FOV speed breathing when sprinting
         const targetFov = isSprinting ? (isPortrait ? 82 : 62) : (isPortrait ? 76 : 56);
@@ -5931,7 +6436,31 @@ export default function ThreeGameWorld({
       const pz = playerPositionRef.current.z;
       let newDist = 'Central Boulevard & Esplanade';
       // Global Metropolises & Historic Citadels
-      if (Math.hypot(px - (-175), pz - 65) < 32) {
+      if (Math.hypot(px - (-360), pz - (-280)) < 38) {
+        newDist = 'Granada & Alhambra Palace Gardens';
+      } else if (Math.hypot(px - 360, pz - (-260)) < 38) {
+        newDist = 'Isfahan Naqsh-e Jahan & Royal Turquoise Dome';
+      } else if (Math.hypot(px - (-280), pz - 320) < 38) {
+        newDist = 'Damascus Ancient Umayyad Citadel & Barada Haven';
+      } else if (Math.hypot(px - (-340), pz - 420) < 38) {
+        newDist = 'Timbuktu Sankore University & Desert Citadel';
+      } else if (Math.hypot(px - (-460), pz - 120) < 42) {
+        newDist = 'Casablanca Ocean Mosque & Atlantic Pier';
+      } else if (Math.hypot(px - 380, pz - 320) < 38) {
+        newDist = 'Lahore Badshahi Imperial Citadel & Shalamar';
+      } else if (Math.hypot(px - 290, pz - (-420)) < 36) {
+        newDist = 'Shiraz Garden of Poets & Nasir al-Mulk';
+      } else if (Math.hypot(px - 80, pz - (-440)) < 36) {
+        newDist = 'Tripoli Mediterranean Citadel & Red Castle';
+      } else if (Math.hypot(px - (-160), pz - (-420)) < 36) {
+        newDist = 'Aleppo Citadel & Historic Covered Souq';
+      } else if (Math.hypot(px - 440, pz - 120) < 36) {
+        newDist = 'Doha Pearl Bay & Modernist Citadel';
+      } else if (Math.hypot(px - 220, pz - (-360)) < 36) {
+        newDist = 'Tunis Medina of Ez-Zitouna & Carthage Coast';
+      } else if (Math.hypot(px - 460, pz - (-100)) < 36) {
+        newDist = 'Muscat Mutrah Harbor & Corniche Esplanade';
+      } else if (Math.hypot(px - (-175), pz - 65) < 32) {
         newDist = 'Lagos Coastal City & Eko Haven';
       } else if (Math.hypot(px - 55, pz - 85) < 28) {
         newDist = 'Kwara Cultural City & Ilorin Citadel';
@@ -6959,31 +7488,29 @@ export default function ThreeGameWorld({
           /* Sleek Collapsed HUD Pill for Clean Mobile Immersion */
           <div className="dash-icon-btn bg-black/85 hover:bg-black/95 border border-emerald-500/40 hover:border-emerald-400 backdrop-blur-xl px-2.5 py-1.5 rounded-2xl shadow-2xl pointer-events-auto flex items-center gap-2 animate-fadeIn transition-all hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]">
             <button
-              onClick={() => setIsPlayerHudMinimized(false)}
+              onClick={() => setIsProfileModalOpen(true)}
               className="flex items-center gap-1.5 text-left cursor-pointer group"
-              title="Tap to Expand Citizen Status & Quests"
+              title="Open Citizen Profile & Guild Reputation"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0 group-hover:scale-125 transition-transform" />
               <span className="text-[11px] font-black uppercase text-white tracking-wide truncate max-w-[90px] xs:max-w-[120px] group-hover:text-emerald-300 transition-colors">
                 {citizenName}
               </span>
               <span className="text-[8px] font-hud text-emerald-400 bg-emerald-500/15 px-1 py-0.5 rounded font-bold uppercase shrink-0">
-                100% HP
+                GUILD LVL 8
               </span>
             </button>
 
             <span className="text-zinc-600">|</span>
 
             <button
-              onClick={() => setIsMissionsModalOpen(true)}
+              onClick={() => setIsProfileModalOpen(true)}
               className="dash-icon-btn flex items-center gap-1 text-[10px] text-zinc-300 hover:text-emerald-300 font-bold uppercase cursor-pointer group hover:scale-105 active:scale-95"
-              title="Open Tasks & Missions"
+              title="Open Guild Reputation & Clan Challenges"
             >
-              <Award className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-12 transition-transform shrink-0" />
-              <span className="text-[9px] font-hud bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1 py-0.2 rounded font-black group-hover:bg-emerald-500/30 group-hover:border-emerald-300 transition-colors">
-                {missions.filter((m) => m.completed && !m.claimed).length > 0
-                  ? `${missions.filter((m) => m.completed && !m.claimed).length} CLAIM`
-                  : `${missions.filter((m) => m.completed).length}/${missions.length}`}
+              <Shield className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-12 transition-transform shrink-0" />
+              <span className="text-[9px] font-hud bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.2 rounded font-black">
+                REP
               </span>
             </button>
 
@@ -6998,27 +7525,40 @@ export default function ThreeGameWorld({
         ) : (
           /* Full Responsive HUD Glass Card (Clean, Uncluttered, No Duplicate Coins) */
           <div className="bg-black/85 border border-white/15 backdrop-blur-xl p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl shadow-2xl pointer-events-auto flex flex-col gap-1.5 sm:gap-2 w-72 xs:w-80 sm:w-full animate-fadeIn transition-all hover:border-emerald-500/40">
-            {/* Top Header: Player Name + Online Dot + Minimize/Collapse Button */}
+            {/* Top Header: Player Name + Online Dot + Profile Link + Minimize/Collapse Button */}
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 truncate group">
+              <button
+                onClick={() => setIsProfileModalOpen(true)}
+                className="flex items-center gap-1.5 truncate group cursor-pointer text-left hover:opacity-90"
+                title="Open Citizen Profile & Guild Reputation"
+              >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0 group-hover:scale-125 transition-transform" />
                 <span className="text-xs font-black uppercase text-white truncate tracking-wide group-hover:text-emerald-300 transition-colors">
                   {citizenName}
                 </span>
                 <span className="text-[8px] font-hud text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-bold shrink-0">
-                  ACTIVE
+                  GUILD LVL 8
                 </span>
-              </div>
-              
-              {/* Collapse button for mobile comfort */}
-              <button
-                onClick={() => setIsPlayerHudMinimized(true)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-[9px] font-bold uppercase shrink-0"
-                title="Minimize Player HUD to Pill"
-              >
-                <span className="text-[8px] hidden xs:inline text-zinc-400 hover:text-white">MINIMIZE</span>
-                <ChevronUp className="w-3.5 h-3.5 text-zinc-300 hover:text-white" />
               </button>
+              
+              <div className="flex items-center gap-1 shrink-0">
+                <button
+                  onClick={() => setIsProfileModalOpen(true)}
+                  className="px-2 py-0.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[8.5px] font-black font-hud uppercase tracking-wider flex items-center gap-1 cursor-pointer transition-all hover:scale-105 active:scale-95"
+                  title="View Guild Reputation, Clan Challenges & Events"
+                >
+                  <Shield className="w-3 h-3 text-emerald-400" />
+                  <span>PROFILE</span>
+                </button>
+                {/* Collapse button for mobile comfort */}
+                <button
+                  onClick={() => setIsPlayerHudMinimized(true)}
+                  className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-[9px] font-bold uppercase shrink-0"
+                  title="Minimize Player HUD to Pill"
+                >
+                  <ChevronUp className="w-3.5 h-3.5 text-zinc-300 hover:text-white" />
+                </button>
+              </div>
             </div>
 
             {/* Location & Vitality Info */}
@@ -7038,21 +7578,38 @@ export default function ThreeGameWorld({
               <div className="w-full h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" />
             </div>
 
-            {/* Quick Access Missions / Quests Pill Button */}
-            <button
-              onClick={() => setIsMissionsModalOpen(true)}
-              className="dash-icon-btn w-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 hover:border-emerald-300 text-emerald-300 px-2.5 py-1.5 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer shadow-lg active:scale-95 group hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-            >
-              <span className="flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-12 transition-transform" />
-                <span className="group-hover:text-white transition-colors">TASKS & MISSIONS</span>
-              </span>
-              <span className="bg-emerald-400 text-black px-1.5 py-0.5 rounded font-black text-[8px] group-hover:scale-105 transition-transform">
-                {missions.filter((m) => m.completed && !m.claimed).length > 0
-                  ? `${missions.filter((m) => m.completed && !m.claimed).length} CLAIMABLE`
-                  : `${missions.filter((m) => m.completed).length}/${missions.length}`}
-              </span>
-            </button>
+            {/* Quick Access Buttons: Guild Reputation & Missions */}
+            <div className="grid grid-cols-2 gap-1.5">
+              <button
+                onClick={() => setIsProfileModalOpen(true)}
+                className="dash-icon-btn bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 hover:border-emerald-300 text-emerald-300 px-2 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 group hover:-translate-y-0.5"
+                title="View Guild Reputation, Clan Challenges & Events"
+              >
+                <span className="flex items-center gap-1 truncate">
+                  <Shield className="w-3 h-3 text-emerald-400 group-hover:rotate-12 transition-transform shrink-0" />
+                  <span className="group-hover:text-white transition-colors truncate">GUILD REP</span>
+                </span>
+                <span className="bg-emerald-400 text-black px-1.5 py-0.2 rounded font-black text-[7.5px] shrink-0">
+                  LVL 8
+                </span>
+              </button>
+
+              <button
+                onClick={() => setIsMissionsModalOpen(true)}
+                className="dash-icon-btn bg-teal-500/20 hover:bg-teal-500/30 border border-teal-500/40 hover:border-teal-300 text-teal-300 px-2 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 group hover:-translate-y-0.5"
+                title="Open Tasks & Missions"
+              >
+                <span className="flex items-center gap-1 truncate">
+                  <Award className="w-3 h-3 text-teal-400 group-hover:rotate-12 transition-transform shrink-0" />
+                  <span className="group-hover:text-white transition-colors truncate">TASKS</span>
+                </span>
+                <span className="bg-teal-400 text-black px-1.5 py-0.2 rounded font-black text-[7.5px] shrink-0">
+                  {missions.filter((m) => m.completed && !m.claimed).length > 0
+                    ? `${missions.filter((m) => m.completed && !m.claimed).length} CLAIM`
+                    : `${missions.filter((m) => m.completed).length}/${missions.length}`}
+                </span>
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -7233,13 +7790,23 @@ export default function ThreeGameWorld({
           </button>
           <button
             type="button"
-            onClick={() => handleSetCameraZoom(200.0)}
-            className={`px-1.5 py-0.5 rounded text-[8px] font-hud font-bold uppercase transition-all cursor-pointer ${
-              cameraDistanceRef.current >= 120 ? 'bg-emerald-500 text-black' : 'text-zinc-400 hover:text-white'
+            onClick={() => handleSetCameraZoom(180.0)}
+            className={`dash-icon-btn px-1.5 py-0.5 rounded text-[8px] font-hud font-bold uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+              cameraDistanceRef.current >= 120 && cameraDistanceRef.current < 320 ? 'bg-emerald-500 text-black shadow-md' : 'text-zinc-400 hover:text-white hover:bg-white/10'
             }`}
             title="Zoom out until the entire city is tiny and miniature"
           >
-            MINIATURE
+            MINI
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSetCameraZoom(480.0)}
+            className={`dash-icon-btn px-1.5 py-0.5 rounded text-[8px] font-hud font-bold uppercase transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+              cameraDistanceRef.current >= 320 ? 'bg-emerald-500 text-black shadow-md' : 'text-zinc-400 hover:text-white hover:bg-white/10'
+            }`}
+            title="Satellite mega overview of entire colossal metropolis"
+          >
+            MEGA
           </button>
         </div>
       </div>
@@ -7906,6 +8473,20 @@ export default function ThreeGameWorld({
         />
       )}
 
+      {/* ========================================================================= */}
+      {/* 5. USER PROFILE & GUILD REPUTATION TRACKING SYSTEM MODAL                  */}
+      {/* ========================================================================= */}
+      <UserProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        citizenName={citizenName}
+        onUpdateCitizenName={(newName) => handleSaveCitizenName(newName)}
+        currentDistrict={currentDistrict}
+        currentWorld={userProfile.world}
+        coins={coins}
+        outfit={userProfile.outfit}
+      />
+
       {/* Minimal Overlay Hamburger Menu Drawer */}
       {isMenuOpen && (
         <>
@@ -7978,6 +8559,17 @@ export default function ThreeGameWorld({
                   >
                     <Palette className="w-3.5 h-3.5" />
                     <span>CUSTOMIZE AVATAR</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setIsProfileModalOpen(true);
+                    }}
+                    className="w-full py-2 bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-300 text-black font-black uppercase text-[11px] rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  >
+                    <Shield className="w-3.5 h-3.5" />
+                    <span>GUILD REPUTATION & PROFILE</span>
                   </button>
                 </div>
 

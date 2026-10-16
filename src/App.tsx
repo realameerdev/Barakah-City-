@@ -20,6 +20,7 @@ import CinematicGameEntry from './game/CinematicGameEntry';
 import { useRealtimeSocket } from './game/useRealtimeSocket';
 import { SilkReveal } from './components/SilkReveal';
 import LandscapeOrientationGate from './components/LandscapeOrientationGate';
+import { UserProfileModal } from './components/UserProfileModal';
 
 // Photorealistic Islamic architectural & cultural imagery
 import heroImg from './assets/images/hero_avatar_mosque_1791286969661.jpg';
@@ -138,6 +139,8 @@ export default function App() {
     winRate: string;
     guild: string;
   } | null>(null);
+
+  const [isMyProfileModalOpen, setIsMyProfileModalOpen] = useState(false);
 
   // Customizer state preview inside dashboard
   const [customCategory, setCustomCategory] = useState<'Face' | 'Hair' | 'Skin' | 'Outfit' | 'Accessories' | 'Expression'>('Outfit');
@@ -279,6 +282,7 @@ export default function App() {
             onEnterWorld={(world) => navigateTo('dashboard', world)}
             onlineCount={onlineCount}
             initialWorld={selectedWorld}
+            onOpenProfile={() => setIsMyProfileModalOpen(true)}
           />
         </main>
       ) : (
@@ -944,6 +948,23 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* User Profile & Guild Reputation Modal */}
+      <UserProfileModal
+        isOpen={isMyProfileModalOpen}
+        onClose={() => setIsMyProfileModalOpen(false)}
+        citizenName={userName}
+        onUpdateCitizenName={(newName) => {
+          setUserName(newName);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('baraka_citizen_name', newName);
+          }
+        }}
+        currentDistrict="Abuja Metropolis Central Capital"
+        currentWorld={selectedWorld}
+        coins={1250}
+        outfit={selectedOutfit}
+      />
 
       {/* Silk Page Transition Veil */}
       <div
