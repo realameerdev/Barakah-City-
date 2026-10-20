@@ -154,10 +154,10 @@ export default function CinematicGameEntry({
   initialWorld = 'Abuja Metropolis',
   onOpenProfile,
 }: CinematicGameEntryProps) {
-  // Immediate readiness: button is active immediately on load
-  const [loadingStage, setLoadingStage] = useState<number>(100);
-  const [displayedProgress, setDisplayedProgress] = useState<number>(100);
-  const [isLoaded, setIsLoaded] = useState<boolean>(true);
+  // Stepped loader progression: 15% -> 45% -> 75% -> 100%
+  const [loadingStage, setLoadingStage] = useState<number>(15);
+  const [displayedProgress, setDisplayedProgress] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isEntering, setIsEntering] = useState<boolean>(false);
   const [isAudioEnabled, setIsAudioEnabled] = useState<boolean>(false);
 
@@ -220,6 +220,27 @@ export default function CinematicGameEntry({
     }
   }, []);
 
+  // Stepped loader milestones: 15% -> 45% -> 75% -> 100%
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setLoadingStage(45);
+    }, 700);
+
+    const timer2 = setTimeout(() => {
+      setLoadingStage(75);
+    }, 1450);
+
+    const timer3 = setTimeout(() => {
+      setLoadingStage(100);
+    }, 2200);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, []);
+
   // Smooth number interpolation between the paused stages
   useEffect(() => {
     let animId: number;
@@ -232,7 +253,7 @@ export default function CinematicGameEntry({
           return curr;
         }
         const diff = loadingStage - curr;
-        const step = Math.max(1.8, diff * 0.35);
+        const step = Math.max(0.6, diff * 0.16);
         const next = Math.min(loadingStage, curr + step);
         if (next >= 100 && !isLoaded) {
           setIsLoaded(true);
@@ -276,21 +297,21 @@ export default function CinematicGameEntry({
     }
   }, []);
 
-  // Circular Enter Button click handler - Enters dashboard immediately without delay
+  // Circular Enter Button click handler - Enters dashboard once 100% loaded
   const handleEnterClick = useCallback(() => {
-    if (isEntering) return;
+    if (isEntering || !isLoaded) return;
     setIsEntering(true);
     onStartTransition?.();
     playEntranceChime();
     // Immediate world entry - no delay
     onEnterWorld(initialWorld);
-  }, [isEntering, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
+  }, [isEntering, isLoaded, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
 
-  // Global Keyboard shortcuts: Enter, Space, Arrows
+  // Global Keyboard shortcuts: Enter, Space (active once 100% loaded)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Enter' || (e.code === 'Space' && e.target === document.body)) {
-        if (!isEntering) {
+        if (!isEntering && isLoaded) {
           e.preventDefault();
           handleEnterClick();
         }
@@ -298,7 +319,7 @@ export default function CinematicGameEntry({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEntering, handleEnterClick]);
+  }, [isEntering, isLoaded, handleEnterClick]);
 
   // Continuous 3D Carousel Render Loop with Inertia & Visibility Handling
   useEffect(() => {
