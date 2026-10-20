@@ -224,15 +224,15 @@ export default function CinematicGameEntry({
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setLoadingStage(45);
-    }, 700);
+    }, 450);
 
     const timer2 = setTimeout(() => {
       setLoadingStage(75);
-    }, 1450);
+    }, 950);
 
     const timer3 = setTimeout(() => {
       setLoadingStage(100);
-    }, 2200);
+    }, 1450);
 
     return () => {
       clearTimeout(timer1);
@@ -253,7 +253,7 @@ export default function CinematicGameEntry({
           return curr;
         }
         const diff = loadingStage - curr;
-        const step = Math.max(0.6, diff * 0.16);
+        const step = Math.max(1.2, diff * 0.25);
         const next = Math.min(loadingStage, curr + step);
         if (next >= 100 && !isLoaded) {
           setIsLoaded(true);
@@ -297,21 +297,21 @@ export default function CinematicGameEntry({
     }
   }, []);
 
-  // Circular Enter Button click handler - Enters dashboard once 100% loaded
+  // Circular Enter Button click handler - Immediately enters dashboard without delay
   const handleEnterClick = useCallback(() => {
-    if (isEntering || !isLoaded) return;
+    if (isEntering) return;
     setIsEntering(true);
     onStartTransition?.();
     playEntranceChime();
-    // Immediate world entry - no delay
+    // Immediate, instant world entry
     onEnterWorld(initialWorld);
-  }, [isEntering, isLoaded, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
+  }, [isEntering, onEnterWorld, onStartTransition, playEntranceChime, initialWorld]);
 
-  // Global Keyboard shortcuts: Enter, Space (active once 100% loaded)
+  // Global Keyboard shortcuts: Enter, Space (active once loaded)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Enter' || (e.code === 'Space' && e.target === document.body)) {
-        if (!isEntering && isLoaded) {
+        if (!isEntering && (isLoaded || displayedProgress >= 99)) {
           e.preventDefault();
           handleEnterClick();
         }
@@ -319,7 +319,7 @@ export default function CinematicGameEntry({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEntering, isLoaded, handleEnterClick]);
+  }, [isEntering, isLoaded, displayedProgress, handleEnterClick]);
 
   // Continuous 3D Carousel Render Loop with Inertia & Visibility Handling
   useEffect(() => {
@@ -943,12 +943,7 @@ export default function CinematicGameEntry({
         </div>
       </footer>
 
-      {/* Smooth Cinematic World Transition Veil */}
-      <div
-        className={`fixed inset-0 z-50 bg-black pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isEntering ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
+      {/* Immediate Instant World Switch - Zero artificial curtain delay */}
     </div>
   );
 }

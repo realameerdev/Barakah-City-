@@ -1003,8 +1003,9 @@ export default function ThreeGameWorld({
   const currentDistrictRef = useRef('Central Boulevard');
   const [currentDistrict, setCurrentDistrict] = useState('Central Boulevard');
 
-  // Minimap full-screen expand modal
+  // Minimap full-screen expand modal & Quick Navigation palette
   const [isMinimapExpanded, setIsMinimapExpanded] = useState(false);
+  const [isQuickNavOpen, setIsQuickNavOpen] = useState(false);
   const [radarCoords, setRadarCoords] = useState<{ x: number; z: number; rot: number }>({ x: 0, z: 18, rot: 0 });
   const [stamina, setStamina] = useState(100);
   const staminaRef = useRef(100);
@@ -3192,12 +3193,12 @@ export default function ThreeGameWorld({
     rendererRef.current = renderer;
     renderer.setSize(width, height, false);
     
-    // Performance Tier DPR handling
-    const maxDpr = performanceTier === 'performance' ? 1.0 : performanceTier === 'balanced' ? 1.5 : 2.0;
+    // Performance Tier DPR & High-FPS Renderer handling
+    const maxDpr = performanceTier === 'performance' ? 1.0 : performanceTier === 'balanced' ? 1.25 : 1.5;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
     
     renderer.shadowMap.enabled = performanceTier !== 'performance';
-    renderer.shadowMap.type = performanceTier === 'high' ? THREE.PCFSoftShadowMap : THREE.BasicShadowMap;
+    renderer.shadowMap.type = THREE.BasicShadowMap;
 
     // Rich Ambient, Directional & Hemisphere Lighting
     const hemiLight = new THREE.HemisphereLight(0xffedd5, 0x1e293b, 0.85);
@@ -5615,6 +5616,10 @@ export default function ThreeGameWorld({
       if (e.code === 'KeyM') {
         setIsMinimapExpanded((prev) => !prev);
       }
+      if (e.code === 'KeyN' && !isChatCardOpen) {
+        e.preventDefault();
+        setIsQuickNavOpen((prev) => !prev);
+      }
       // Instant camera zoom keyboard shortcuts
       if (e.code === 'Equal' || e.code === 'NumpadAdd' || (e.code === 'KeyI' && !isChatCardOpen)) {
         e.preventDefault();
@@ -5658,8 +5663,9 @@ export default function ThreeGameWorld({
     const deltaX = e.clientX - previousMouseRef.current.x;
     const deltaY = e.clientY - previousMouseRef.current.y;
 
-    cameraAngleRef.current.horizontal -= deltaX * 0.005;
-    cameraAngleRef.current.vertical = Math.max(0.04, Math.min(1.35, cameraAngleRef.current.vertical + deltaY * 0.005));
+    // Fast, responsive mouse look orbit
+    cameraAngleRef.current.horizontal -= deltaX * 0.009;
+    cameraAngleRef.current.vertical = Math.max(0.04, Math.min(1.35, cameraAngleRef.current.vertical + deltaY * 0.009));
 
     previousMouseRef.current = { x: e.clientX, y: e.clientY };
   };
@@ -5759,22 +5765,22 @@ export default function ThreeGameWorld({
         const clampedDist = Math.min(dist, maxRadius);
         const angle = Math.atan2(dy, dx);
 
-        // Quadratic curve for smooth analog feel (slow walk to full run)
+        // Snappy, agile linear curve for responsive navigation on mobile & tablet
         const normalizedPower = clampedDist / maxRadius;
-        const curvedPower = normalizedPower * normalizedPower;
+        const curvedPower = Math.min(1.0, normalizedPower * 1.35);
         const jx = Math.cos(angle) * curvedPower;
         const jy = Math.sin(angle) * curvedPower;
 
         joystickVectorRef.current = { x: jx, y: jy };
         setJoystickVector({ x: jx, y: jy });
       }
-      // Update Touch Camera Pan
+      // Update Touch Camera Pan (Snappy, agile look around)
       if (touch.identifier === cameraTouchIdRef.current) {
         const deltaX = touch.clientX - previousCameraTouchRef.current.x;
         const deltaY = touch.clientY - previousCameraTouchRef.current.y;
 
-        cameraAngleRef.current.horizontal -= deltaX * 0.007;
-        cameraAngleRef.current.vertical = Math.max(0.05, Math.min(1.2, cameraAngleRef.current.vertical + deltaY * 0.007));
+        cameraAngleRef.current.horizontal -= deltaX * 0.013;
+        cameraAngleRef.current.vertical = Math.max(0.05, Math.min(1.2, cameraAngleRef.current.vertical + deltaY * 0.013));
 
         previousCameraTouchRef.current = { x: touch.clientX, y: touch.clientY };
       }
@@ -5955,21 +5961,21 @@ export default function ThreeGameWorld({
         // PLAYER IS DRIVING A VEHICLE!
         const drivenVeh = vehiclesRef.current.find((v) => v.id === drivingVehicleRef.current);
         if (drivenVeh) {
-          // Steer car rotation smoothly
+          // Steer car rotation smoothly & sharply
           if (Math.abs(moveSide) > 0.05) {
             const turnDir = (drivenVeh.currentSpeed >= -0.5 ? 1 : -1);
-            drivenVeh.mesh.rotation.y -= moveSide * turnDir * 2.5 * delta;
+            drivenVeh.mesh.rotation.y -= moveSide * turnDir * 3.6 * delta;
           }
 
           // Accelerate or brake
-          const maxForwardSpeed = 24.0; // ~86 km/h
-          const maxReverseSpeed = -7.5;
+          const maxForwardSpeed = 48.0; // ~173 km/h
+          const maxReverseSpeed = -15.0;
           if (moveForward > 0.1) {
-            drivenVeh.currentSpeed = Math.min(maxForwardSpeed, drivenVeh.currentSpeed + 16.0 * delta * moveForward);
+            drivenVeh.currentSpeed = Math.min(maxForwardSpeed, drivenVeh.currentSpeed + 32.0 * delta * moveForward);
           } else if (moveForward < -0.1) {
-            drivenVeh.currentSpeed = Math.max(maxReverseSpeed, drivenVeh.currentSpeed + 22.0 * delta * moveForward);
+            drivenVeh.currentSpeed = Math.max(maxReverseSpeed, drivenVeh.currentSpeed + 36.0 * delta * moveForward);
           } else {
-            drivenVeh.currentSpeed *= Math.pow(0.93, delta * 60);
+            drivenVeh.currentSpeed *= Math.pow(0.95, delta * 60);
             if (Math.abs(drivenVeh.currentSpeed) < 0.1) drivenVeh.currentSpeed = 0;
           }
 
@@ -6007,19 +6013,19 @@ export default function ThreeGameWorld({
       }
 
       const wantsToSprint = isRunMode || state.toggleMovementMode === 'run' || keysRef.current['ShiftLeft'] || keysRef.current['ShiftRight'];
-      isSprinting = wantsToSprint && staminaRef.current > 5;
+      isSprinting = wantsToSprint && staminaRef.current > 2;
       const hasSpeedBoost = speedBoostUntil > Date.now();
       const sprintMultiplier = hasSpeedBoost ? 1.45 : 1.0;
-      // Fast, silky smooth navigation speed (walk: 6.8 m/s, sprint: 12.5 m/s)
-      const speed = (isSprinting ? 12.5 * sprintMultiplier : 6.8 * sprintMultiplier) * delta;
+      // High-speed, agile, immediate open-world navigation (walk: 14.5 m/s, sprint: 26.0 m/s)
+      const speed = (isSprinting ? 26.0 * sprintMultiplier : 14.5 * sprintMultiplier) * delta;
 
       const isMoving = (moveForward !== 0 || moveSide !== 0) && !isSitting && !isPraying && !isResting;
 
-      // GTA-style Stamina Drainage and Regeneration
+      // Generous stamina: sprint lasts effortlessly, recovers near-instantly
       if (isMoving && isSprinting) {
-        staminaRef.current = Math.max(0, staminaRef.current - delta * 14);
+        staminaRef.current = Math.max(0, staminaRef.current - delta * 3.5);
       } else {
-        staminaRef.current = Math.min(100, staminaRef.current + delta * 28);
+        staminaRef.current = Math.min(100, staminaRef.current + delta * 65);
       }
 
       if (isMoving) {
@@ -6091,17 +6097,17 @@ export default function ThreeGameWorld({
         }
 
         const targetRotation = Math.atan2(moveVector.x, moveVector.z);
-        playerRotationRef.current = THREE.MathUtils.lerp(playerRotationRef.current, targetRotation, 0.25);
+        playerRotationRef.current = THREE.MathUtils.lerp(playerRotationRef.current, targetRotation, 0.50);
 
-        // Animate legs and arm stride
+        // Animate legs and arm stride smoothly at high speeds
         if (playerGroupRef.current) {
           const leftArm = playerGroupRef.current.getObjectByName('leftArm');
           const rightArm = playerGroupRef.current.getObjectByName('rightArm');
           const leftLeg = playerGroupRef.current.getObjectByName('leftLeg');
           const rightLeg = playerGroupRef.current.getObjectByName('rightLeg');
 
-          const freq = isSprinting ? 18 : 10;
-          const amp = isSprinting ? 0.85 : 0.55;
+          const freq = isSprinting ? 22 : 14;
+          const amp = isSprinting ? 0.90 : 0.65;
 
           const swing = Math.sin(elapsedTime * freq) * amp;
           if (leftLeg) leftLeg.rotation.x = swing;
@@ -7418,6 +7424,18 @@ export default function ThreeGameWorld({
               🌙
             </button>
           </div>
+
+          {/* Quick City Navigation / Fast Travel Waypoints Button */}
+          <button
+            type="button"
+            onClick={() => setIsQuickNavOpen((prev) => !prev)}
+            className="dash-icon-btn flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-amber-500/25 to-amber-600/20 hover:from-amber-500/40 hover:to-amber-600/35 active:scale-95 border border-amber-400/60 text-amber-300 hover:text-white rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-xl backdrop-blur-md group shrink-0 whitespace-nowrap hover:-translate-y-0.5 hover:shadow-[0_0_18px_rgba(245,158,11,0.5)]"
+            title="Instant City Navigation & Fast Travel [N]"
+            aria-label="Instant City Navigation"
+          >
+            <Compass className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-45 transition-transform shrink-0" />
+            <span>NAVIGATE</span>
+          </button>
 
           {/* Live World Status HUD (Desktop / Large Displays) */}
           <div className="dash-icon-btn hidden xl:flex items-center gap-2 bg-black/70 border border-white/10 hover:border-emerald-500/40 hover:bg-black/85 backdrop-blur-md px-2.5 py-1 rounded-xl shadow-2xl shrink-0 cursor-default group transition-all">
@@ -8883,6 +8901,92 @@ export default function ThreeGameWorld({
         currentDistrict={currentDistrict}
         onFastTravel={handleFastTravel}
       />
+
+      {/* Instant Quick Navigation / Fast Travel Waypoints Palette Modal */}
+      {isQuickNavOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn pointer-events-auto select-none">
+          <div className="bg-[#0e121a]/95 border-2 border-amber-400/60 rounded-3xl w-full max-w-lg p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.95)] space-y-3.5 relative max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-md">
+                  <Compass className="w-5 h-5 animate-spin-slow" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-black uppercase text-white tracking-wider flex items-center gap-2">
+                    <span>QUICK CITY NAVIGATION</span>
+                    <span className="text-[9px] bg-amber-400 text-black px-1.5 py-0.5 rounded font-hud font-bold">1-TAP TRAVEL</span>
+                  </h3>
+                  <p className="text-[10.5px] text-zinc-300">
+                    Instantly travel across Baraka City landmarks and institutions
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsQuickNavOpen(false)}
+                className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-zinc-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                title="Close Navigation [Esc / N]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Landmarks Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {[
+                { name: 'Grand Mosque Sanctuary', desc: 'Central Dome & Prayer Courtyard', x: 0, z: -35, icon: '🕌', color: 'border-emerald-500/40 bg-emerald-500/10 hover:border-emerald-400' },
+                { name: 'Souq Al-Madina Bazaar', desc: 'Marketplace, Vendors & Trading', x: -160, z: -90, icon: '🏺', color: 'border-amber-500/40 bg-amber-500/10 hover:border-amber-400' },
+                { name: 'Baraka University Campus', desc: 'Academic Quad & Grand Library', x: 160, z: -90, icon: '🏫', color: 'border-sky-500/40 bg-sky-500/10 hover:border-sky-400' },
+                { name: 'Football Championship Pitch', desc: 'Community Stadium & Recreation', x: 240, z: 90, icon: '⚽', color: 'border-lime-500/40 bg-lime-500/10 hover:border-lime-400' },
+                { name: 'Residential Villas & Homes', desc: 'Quiet Neighborhoods & Rest', x: -240, z: 90, icon: '🏡', color: 'border-purple-500/40 bg-purple-500/10 hover:border-purple-400' },
+                { name: 'Madrasa & Quran Academy', desc: 'Knowledge & Study Halls', x: 90, z: -180, icon: '📖', color: 'border-pink-500/40 bg-pink-500/10 hover:border-pink-400' },
+                { name: 'City Hospital & Wellness', desc: 'Emergency & Civic Services', x: -90, z: -180, icon: '🏥', color: 'border-cyan-500/40 bg-cyan-500/10 hover:border-cyan-400' },
+                { name: 'Central Boulevard & Plaza', desc: 'City Center & Grand Promenade', x: 0, z: 18, icon: '🏛️', color: 'border-amber-400/40 bg-amber-400/10 hover:border-amber-300' },
+              ].map((loc) => (
+                <button
+                  key={loc.name}
+                  type="button"
+                  onClick={() => {
+                    handleFastTravel(loc.x, loc.z, loc.name);
+                    setIsQuickNavOpen(false);
+                  }}
+                  className={`p-2.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer group active:scale-95 shadow-md ${loc.color}`}
+                >
+                  <span className="text-2xl shrink-0 group-hover:scale-120 transition-transform">{loc.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-xs font-black uppercase text-white tracking-wide block truncate group-hover:text-amber-300 transition-colors">
+                      {loc.name}
+                    </span>
+                    <span className="text-[10px] text-zinc-300 truncate block">
+                      {loc.desc}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[10px] font-hud text-zinc-400 uppercase">
+              <span className="flex items-center gap-1.5">
+                <span className="px-1.5 py-0.5 rounded bg-white/10 text-amber-300 font-mono font-bold">N</span>
+                <span>TOGGLE QUICK NAV</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsQuickNavOpen(false);
+                  setIsMinimapExpanded(true);
+                }}
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-emerald-500 hover:text-black text-emerald-400 font-black tracking-wider transition-all cursor-pointer flex items-center gap-1 active:scale-95"
+              >
+                <span>OPEN FULL WORLD MAP [M]</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mobile & Tablet Touch Virtual Joystick (Draggable and Repositionable anywhere on screen) */}
       {(isMobileControlsVisible || viewportProfile.isMobile || viewportProfile.isTablet) && (
